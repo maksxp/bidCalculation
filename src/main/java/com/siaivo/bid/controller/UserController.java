@@ -63,6 +63,7 @@ public class UserController {
         modelAndView.addObject("user", user);
         modelAndView.setViewName("admin/userEdit");
         return modelAndView;
+        //test
          }
 
     @RequestMapping(value = "/admin/userEdit", method = RequestMethod.POST)
