@@ -36,28 +36,28 @@ public class OrderController {
     @Autowired
     private EquipmentService equipmentService;
 
-    @RequestMapping(value="/viasat/order", method = RequestMethod.GET)
+    @RequestMapping(value= "/sales/order", method = RequestMethod.GET)
     public ModelAndView createNewViasatOrder(){
         ModelAndView modelAndView = new ModelAndView();
         Order order = new Order ();
         modelAndView.addObject("order", order);
 
-        modelAndView.addObject("listAllModels", productService.listAllProducts());
-        modelAndView.setViewName("viasat/order");
+        modelAndView.addObject("listAllProducts", productService.listAllProducts());
+        modelAndView.setViewName("sales/order");
         return modelAndView;
     }
-    @RequestMapping(value = "/viasat/order", method = RequestMethod.POST)
+    @RequestMapping(value = "/sales/order", method = RequestMethod.POST)
     public ModelAndView createNewViasatOrder(@Valid Order order, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-             modelAndView.addObject("listAllModels", productService.listAllProducts());
-            modelAndView.setViewName("viasat/order");
+             modelAndView.addObject("listAllProducts", productService.listAllProducts());
+            modelAndView.setViewName("sales/order");
         } else {
             orderService.saveViasatOrder(order);
             modelAndView.addObject("successMessage", "Заявку успішно створено");
-            modelAndView.addObject("listAllModels", productService.listAllProducts());
+            modelAndView.addObject("listAllProducts", productService.listAllProducts());
             modelAndView.addObject("order", new Order());
-            modelAndView.setViewName("viasat/order");
+            modelAndView.setViewName("sales/order");
         }
         return modelAndView;
     }
@@ -68,7 +68,7 @@ public class OrderController {
         modelAndView.addObject("order", order);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-         modelAndView.addObject("allModels", productService.listAllProducts());
+         modelAndView.addObject("allProducts", productService.listAllProducts());
         modelAndView.setViewName("DTH/order");
         return modelAndView;
     }
@@ -78,12 +78,12 @@ public class OrderController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("allModels", productService.listAllProducts());
+            modelAndView.addObject("allProducts", productService.listAllProducts());
             modelAndView.setViewName("DTH/order");
         } else {
             orderService.saveOrder(order);
             modelAndView.addObject("successMessage", "Заявку успішно створено");
-            modelAndView.addObject("allModels", productService.listAllProducts());
+            modelAndView.addObject("allProducts", productService.listAllProducts());
             modelAndView.addObject("order", new Order());
             modelAndView.setViewName("DTH/order");
         }
@@ -98,11 +98,11 @@ public class OrderController {
         modelAndView.setViewName("DTH/ordersList");
         return modelAndView;
     }
-    @RequestMapping(value="viasat/allOrdersList", method = RequestMethod.GET)
+    @RequestMapping(value="sales/allOrdersList", method = RequestMethod.GET)
     public ModelAndView allOrders(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("allOrders", orderService.listAllOrders());
-        modelAndView.setViewName("viasat/allOrdersList");
+        modelAndView.setViewName("sales/allOrdersList");
         return modelAndView;
     }
     @RequestMapping(value="Warehouse/allOrdersList", method = RequestMethod.GET)
@@ -119,25 +119,25 @@ public class OrderController {
         modelAndView.setViewName("Warehouse/warehouseOrdersList");
         return modelAndView;
     }
-    @RequestMapping(value="viasat/assignedOrdersList", method = RequestMethod.GET)
+    @RequestMapping(value="sales/assignedOrdersList", method = RequestMethod.GET)
     public ModelAndView viasatOrders(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("viasatOrders", orderService.listViasatOrders());
-        modelAndView.setViewName("viasat/assignedOrdersList");
+        modelAndView.setViewName("sales/assignedOrdersList");
         return modelAndView;
     }
-    @RequestMapping(value = "/viasat/confirmOrder/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/sales/confirmOrder/{id}", method = RequestMethod.GET)
     public ModelAndView confirmOrder(@PathVariable(value = "id") int id){
         Order order =  orderService.findOrderById(id);
         orderService.confirmOrder(order);
         return new ModelAndView("redirect:/viasat/assignedOrdersList");
     }
-    @RequestMapping(value = "/viasat/confirmOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/sales/confirmOrder", method = RequestMethod.POST)
     public ModelAndView confirmOrder (@ModelAttribute("order")Order order) {
         orderService.confirmOrder(order);
         return new ModelAndView("redirect:/viasat/allOrdersLists");
     }
-    @RequestMapping(value = "/viasat/editOrder/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/sales/editOrder/{id}", method = RequestMethod.GET)
     public ModelAndView editOrder(@PathVariable(value = "id") int id){
         ModelAndView modelAndView = new ModelAndView();
         Order order =  orderService.findOrderById(id);
@@ -145,7 +145,7 @@ public class OrderController {
         modelAndView.setViewName("viasat/editOrder");
         return modelAndView;
     }
-    @RequestMapping(value = "/viasat/editOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/sales/editOrder", method = RequestMethod.POST)
     public ModelAndView editOrder(@ModelAttribute("order")Order order) {
         ModelAndView modelAndView = new ModelAndView();
         int quantity =  order.getQuantity();
