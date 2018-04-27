@@ -24,7 +24,7 @@
 			</form>
 		</div>
 		<div class=" col-md-3 col-xs-12 col-sm-3 col-lg-3" >
-			<form th:action="@{/siaivo/allProducts}" method="get">
+			<form th:action="@{/sales/allProducts}" method="get">
 				<button class="btn btn-md btn-info btn-block" type="Submit">Всі моделі обладнання</button>
 			</form>
 		</div>
@@ -38,7 +38,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#" th:action="@{/siaivo/productRegistration}"
+				<form autocomplete="off" action="#" th:action="@{/sales/productRegistration}"
 					th:object="${product}" method="post" class="form-horizontal" role="form">
 					<h2>Форма реєстрації нового продукту</h2>
 
@@ -52,17 +52,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-9">
-							<label>Тип обладнання</label>
-							<select th:field="*{type}">
-								<option th:value="OTT">OTT</option>
-								<option th:value="DTH">DTH</option>
-							</select>
-						 </div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">Додати модель</button>
+							<button type="submit" class="btn btn-primary btn-block">Додати продукт</button>
 						</div>
 					</div>
 					

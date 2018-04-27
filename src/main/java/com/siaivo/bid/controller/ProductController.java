@@ -16,23 +16,23 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value="/siaivo/allProducts", method = RequestMethod.GET)
+    @RequestMapping(value="/sales/allProducts", method = RequestMethod.GET)
     public ModelAndView allProducts(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("allProducts", productService.listAllProducts());
-        modelAndView.setViewName("/siaivo/allProducts");
+        modelAndView.setViewName("/sales/allProducts");
         return modelAndView;
     }
-    @RequestMapping(value="/siaivo/productRegistration", method = RequestMethod.GET)
+    @RequestMapping(value="/sales/productRegistration", method = RequestMethod.GET)
     public ModelAndView productRegistration(){
         ModelAndView modelAndView = new ModelAndView();
         Product product = new Product();
         modelAndView.addObject("product", product);
-        modelAndView.setViewName("/siaivo/productRegistration");
+        modelAndView.setViewName("/sales/productRegistration");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/siaivo/productRegistration", method = RequestMethod.POST)
+    @RequestMapping(value = "/sales/productRegistration", method = RequestMethod.POST)
     public ModelAndView createNewProduct(@Valid Product product, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         Product productExists = productService.findByName(product.getName());
@@ -42,12 +42,12 @@ public class ProductController {
                             "Такий продукт вже зареєстровано");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("/siaivo/productRegistration");
+            modelAndView.setViewName("/sales/productRegistration");
         } else {
             productService.saveProduct(product);
             modelAndView.addObject("successMessage", "Продукт успішно додано");
             modelAndView.addObject("product", new Product());
-            modelAndView.setViewName("/siaivo/productRegistration");
+            modelAndView.setViewName("/sales/productRegistration");
         }
         return modelAndView;
     }

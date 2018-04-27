@@ -31,9 +31,9 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if(authority.getAuthority().equalsIgnoreCase("VIASAT")) {
+            } else if(authority.getAuthority().equalsIgnoreCase("sales")) {
                 try {
-                    redirectStrategy.sendRedirect(request, response, "/viasat/allOrdersList");
+                    redirectStrategy.sendRedirect(request, response, "/sales/allOrdersList");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

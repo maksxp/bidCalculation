@@ -1,15 +1,17 @@
 package com.siaivo.bid.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import com.siaivo.bid.model.Product;
 import com.siaivo.bid.repository.ProductRepository;
 
 import java.util.List;
 
-@Service("modelService")
+@Service("productService")
 public class ProductServiceImpl implements ProductService {
 
+    @Qualifier("productRepository")
     @Autowired
     private ProductRepository productRepository;
 

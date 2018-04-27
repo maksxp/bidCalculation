@@ -15,11 +15,7 @@ public class Product {
     @Column(name="name")
     @NotEmpty(message = "*Будь ласка вкажіть назву продукту")
     private String name;
-    @Column(name="type")
-    @NotEmpty(message = "*Будь ласка вкажіть тип продукту")
-    private String type;
-
-    public int getId() {
+     public int getId() {
         return id;
     }
     public void setId(int id) {
@@ -32,14 +28,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     @Override
