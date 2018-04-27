@@ -1,5 +1,5 @@
 package com.siaivo.bid.controller;
-
+hello
 import com.siaivo.bid.model.User;
 import com.siaivo.bid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
