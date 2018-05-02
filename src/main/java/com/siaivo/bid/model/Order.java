@@ -22,30 +22,18 @@ public class Order {
     @Column(name = "close_date")
     private Date closeDate;
     @Column(name = "quantity")
-    @Min(5)
     private int quantity;
-    @Column(name = "final_quantity")
-    private int finalQuantity;
-    @Column(name = "model")
-    private String model;
-    @Column(name = "company")
-    private String company;
-    @Column(name = "ttn")
-    private String ttn;
-    @Column(name = "address")
-    private String address;
-    @Column(name = "phone")
-    @Min(5)
-    @NotEmpty(message = "*Будь ласка вкажіть телефон отримувача")
-    private String phone;
+    @Column(name = "product")
+    private String product;
+    @Column(name = "buyer")
+    private String incoterms;
+    @Column(name = "incoterms")
+    private String buyer;
     @Column(name = "comment")
     private String comment;
-    @Column(name = "name")
-    @NotEmpty(message = "*Будь ласка вкажіть ім'я отримувача")
-    private String name;
-    @Column(name = "surname")
-    @NotEmpty(message = "*Будь ласка вкажіть прізвище отримувача")
-    private String surname;
+    @Column(name = "destination")
+    @NotEmpty(message = "*Будь ласка вкажіть місце поставки")
+    private String destination;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
@@ -98,14 +86,6 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public User getUser() {
         return user;
     }
@@ -114,28 +94,10 @@ public class Order {
         this.user = user;
     }
 
-    public String getModel() {
-        return model;
-    }
+    public String getProduct() { return product;}
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getTtn() {
-        return ttn;
-    }
-
-    public void setTtn(String ttn) {
-        this.ttn = ttn;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public String getComment() {
@@ -146,36 +108,28 @@ public class Order {
         this.comment = comment;
     }
 
-    public String getName() {
-        return name;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getIncoterms() {
+        return incoterms;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setIncoterms(String incoterms) {
+        this.incoterms = incoterms;
     }
 
-    public int getFinalQuantity() {
-        return finalQuantity;
+    public String getBuyer() {
+        return buyer;
     }
 
-    public void setFinalQuantity(int finalQuantity) {
-        this.finalQuantity = finalQuantity;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository("orderRepository")
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Order findById(int id);
-    List<Order> findByModel(String model);
+    List<Order> findByProduct(String product);
     List<Order> findByStatusLike(String orderStatus);
     List<Order> findByStartDateBetween(Date dateStart, Date dateEnd);
 }

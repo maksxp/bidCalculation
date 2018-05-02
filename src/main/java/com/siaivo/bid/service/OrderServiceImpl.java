@@ -44,7 +44,6 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void saveOrder(Order order) {
           int finalQuantity = order.getQuantity();
-          order.setFinalQuantity(finalQuantity);
           order.setStartDate(new Date());
           order.setStatus("На погодженні");
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,7 +55,6 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void saveViasatOrder(Order order) {
         int finalQuantity = order.getQuantity();
-        order.setFinalQuantity(finalQuantity);
         order.setStartDate(new Date());
         order.setStatus("В роботі");
         order.setApproveDate(new Date());
@@ -86,7 +84,6 @@ public class OrderServiceImpl implements OrderService{
     }
     @Override
     public void editOrder(Order order, int quantity) {
-        order.setFinalQuantity(quantity);
         order.setStatus("В роботі");
         order.setApproveDate(new Date());
         orderRepository.save(order);

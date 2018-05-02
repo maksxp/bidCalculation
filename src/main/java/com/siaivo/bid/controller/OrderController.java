@@ -171,13 +171,7 @@ public class OrderController {
     public ModelAndView warehouseEquipmentUpload (@RequestParam("myFile") MultipartFile myFile, @ModelAttribute("order") Order order) {
         Set<String> uploadedSerial = new HashSet<>();
         ModelAndView modelAndView = new ModelAndView();
-        String ttn = order.getTtn();
         order = orderService.findOrderById(order.getId());
-        if (ttn.equals("")) {
-            modelAndView.addObject("order", order);
-            modelAndView.addObject("errorMessage", "Необхідно вказати номер ТТН");
-            return modelAndView;
-        }
         uploadSerialNumbers(uploadedSerial, myFile);
         if (!(uploadedSerial.size()==order.getQuantity())){
             modelAndView.addObject("order", order);
@@ -195,7 +189,6 @@ public class OrderController {
                     equipmentService.editEquipmentLocation(serial);
                 }
                 modelAndView.addObject("successMessage", "Передано "+uploadedSerial.size()+ " тюнерів");
-                order.setTtn(ttn);
                 orderService.closeOrder(order);
                 return new ModelAndView("redirect:/Warehouse/allOrdersList");}
             else

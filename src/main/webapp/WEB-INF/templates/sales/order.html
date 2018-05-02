@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="icon" type="image/x-icon" href="/favicon.ico" th:href="@{/images/favicon.ico}" />
+	<link rel="icon" type="image/x-icon" href="/favicon.png" th:href="@{/images/favicon.png}" />
 	<title>Order Creation Form</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -19,12 +19,12 @@
 			</form>
 		</div>
         <div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
-	      <form th:action="@{/viasat/allOrdersList}" method="get">
+	      <form th:action="@{/sales/allOrdersList}" method="get">
 		      <button class="btn btn-md btn-success btn-block" type="Submit">Всі заявки</button>
 	      </form>
         </div>
 		<div class=" col-md-4 col-xs-12 col-sm-4 col-lg-4" >
-			<form th:action="@{/viasat/assignedOrdersList}" method="get">
+			<form th:action="@{/sales/assignedOrdersList}" method="get">
 				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки на погодженні</button>
 			</form>
 		</div>
@@ -38,13 +38,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<form autocomplete="off" action="#" th:action="@{/viasat/order}"
+			<form autocomplete="off" action="#" th:action="@{/sales/order}"
 				  th:object="${order}" method="post" class="form-horizontal" role="form">
 				<h2>Форма створення заявки</h2>
 				<div class="form-group">
 					<div class="col-sm-9">
 						<input type="text" th:field="*{quantity}"
-							   placeholder="Кількість"  class="form-control" />
+							   placeholder="Вага"  class="form-control" />
 						<label th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"
 							   class="validation-message"></label>
 					</div>
@@ -52,53 +52,48 @@
 
 				<div class="form-group">
 					<div class="col-sm-9">
-						<label>Модель</label>
-						<select th:field="*{model}">
-							<option th:each="model : ${listAllModels}" th:value="${{model.name}}" th:text="${model.name}">
+						<label>продукт</label>
+						<select th:field="*{product}">
+							<option th:each="product : ${listAllProducts}" th:value="${{product.name}}" th:text="${product.name}">
 							</option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{name}" placeholder="Ім'я отримувача"
+						<input type="text" th:field="*{buyer}" placeholder="Покупець"
 							   class="form-control" /> <label
-							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+							th:if="${#fields.hasErrors('buyer')}" th:errors="*{buyer}"
 							class="validation-message"></label>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{surname}" placeholder="Призвище отримувача"
+						<input type="text" th:field="*{destination}" placeholder="Місце поставки"
 							   class="form-control" /> <label
-							th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"
+							th:if="${#fields.hasErrors('destination')}" th:errors="*{destination}"
 							class="validation-message"></label>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{phone}" placeholder="Телефон отримувача"
-							   class="form-control" /> <label
-							th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
-							class="validation-message"></label>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<label>Партнер</label>
-						<select id="company" name="company" th:field="*{company}">
-							<option th:each="company: ${listAllCompanies}" th:value="${company.name}" th:text="${company.name}"></option>
+						<label>Покупець</label>
+						<select id="buyer" name="buyer" th:field="*{buyer}">
+							<option th:each="company: ${listAllBuyers}" th:value="${buyer.name}" th:text="${buyer.name}"></option>
 						</select>
 
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<label>Адреса доставки</label>
-						<select id="series" name="series" th:field="*{address}">
-							<option th:each="deliveryAddress: ${listAllDeliveryAddresses}" th:value="${deliveryAddress.address}" th:text="${deliveryAddress.address}"></option>
+						<label>Умови поставки</label>
+						<select th:field="*{incoterms}">
+							<option th:value="FOB">FOB</option>
+							<option th:value="FCA">FCA</option>
+							<option th:value="DDU">DDU</option>
+							<option th:value="DAP">DAP</option>
+							<option th:value="CFR">CFR</option>
 						</select>
-
 					</div>
 				</div>
 				<div class="form-group">
