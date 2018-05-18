@@ -43,16 +43,7 @@
 				<h2>Форма створення заявки</h2>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{quantity}"
-							   placeholder="Вага у тонах"  class="form-control" />
-						<label th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"
-							   class="validation-message"></label>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="col-sm-9">
-						<label>продукт</label>
+						<label>Товар</label>
 						<select th:field="*{product}">
 							<option th:each="product : ${listAllProducts}" th:value="${{product.name}}" th:text="${product.name}">
 							</option>
@@ -61,10 +52,22 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{buyer}" placeholder="Покупець"
-							   class="form-control" /> <label
-							th:if="${#fields.hasErrors('buyer')}" th:errors="*{buyer}"
-							class="validation-message"></label>
+						<input type="text" th:field="*{weight}"
+							   placeholder="Вага у тонах"  class="form-control" />
+						<label th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
+							   class="validation-message"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<label>Умови поставки</label>
+						<select th:field="*{incoterms}">
+							<option th:value="FOB">FOB</option>
+							<option th:value="FCA">FCA</option>
+							<option th:value="DDU">DDU</option>
+							<option th:value="DAP">DAP</option>
+							<option th:value="CFR">CFR</option>
+						</select>
 					</div>
 				</div>
 				<div class="form-group">
@@ -79,20 +82,26 @@
 					<div class="col-sm-9">
 						<label>Покупець</label>
 						<select id="buyer" name="buyer" th:field="*{buyer}">
-							<option th:each="company: ${listAllBuyers}" th:value="${buyer.name}" th:text="${buyer.name}"></option>
+							<option th:each="buyer: ${listAllBuyers}" th:value="${buyer.name}" th:text="${buyer.name}"></option>
 						</select>
 
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<label>Умови поставки</label>
-						<select th:field="*{incoterms}">
-							<option th:value="FOB">FOB</option>
-							<option th:value="FCA">FCA</option>
-							<option th:value="DDU">DDU</option>
-							<option th:value="DAP">DAP</option>
-							<option th:value="CFR">CFR</option>
+						<input type="text" th:field="*{estimatedPrice}" placeholder="Ціна"
+							   class="form-control" /> <label
+							th:if="${#fields.hasErrors('estimatedPrice')}" th:errors="*{estimatedPrice}"
+							class="validation-message"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<label>Валюта контракту</label>
+						<select th:field="*{currency}">
+							<option th:value="EUR">EUR</option>
+							<option th:value="USD">USD</option>
+							<option th:value="UAH">UAH</option>
 						</select>
 					</div>
 				</div>

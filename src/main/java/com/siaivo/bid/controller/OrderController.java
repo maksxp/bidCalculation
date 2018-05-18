@@ -32,6 +32,8 @@ public class OrderController {
     @Autowired
     private UserService userService;
     @Autowired
+    private BuyerService buyerService;
+    @Autowired
     private ProductService productService;
     @Autowired
     private EquipmentService equipmentService;
@@ -41,7 +43,7 @@ public class OrderController {
         ModelAndView modelAndView = new ModelAndView();
         Order order = new Order ();
         modelAndView.addObject("order", order);
-
+        modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
         modelAndView.addObject("listAllProducts", productService.listAllProducts());
         modelAndView.setViewName("sales/order");
         return modelAndView;
@@ -51,10 +53,12 @@ public class OrderController {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
              modelAndView.addObject("listAllProducts", productService.listAllProducts());
+            modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
             modelAndView.setViewName("sales/order");
         } else {
             orderService.saveViasatOrder(order);
             modelAndView.addObject("successMessage", "Заявку успішно створено");
+            modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
             modelAndView.addObject("listAllProducts", productService.listAllProducts());
             modelAndView.addObject("order", new Order());
             modelAndView.setViewName("sales/order");
@@ -148,14 +152,10 @@ public class OrderController {
     @RequestMapping(value = "/sales/editOrder", method = RequestMethod.POST)
     public ModelAndView editOrder(@ModelAttribute("order")Order order) {
         ModelAndView modelAndView = new ModelAndView();
-        int quantity =  order.getQuantity();
+        int weight =  order.getWeight();
         int id = order.getId();
         order = orderService.findOrderById(id);
-        if (quantity<5){
-            modelAndView.addObject("successMessage", "Кількість має бути не менше п'яти штук");
-            return modelAndView;
-        }
-        orderService.editOrder(order, quantity);
+        orderService.editOrder(order, weight);
         modelAndView.addObject("successMessage", "Зміни успішно внесено");
         return modelAndView;
     }
@@ -173,9 +173,9 @@ public class OrderController {
         ModelAndView modelAndView = new ModelAndView();
         order = orderService.findOrderById(order.getId());
         uploadSerialNumbers(uploadedSerial, myFile);
-        if (!(uploadedSerial.size()==order.getQuantity())){
+        if (!(uploadedSerial.size()==order.getWeight())){
             modelAndView.addObject("order", order);
-            modelAndView.addObject("errorMessage", "Завантажено "+uploadedSerial.size()+ " тюнерів, а необхідно " + order.getQuantity());
+            modelAndView.addObject("errorMessage", "Завантажено "+uploadedSerial.size()+ " тюнерів, а необхідно " + order.getWeight());
             return modelAndView;
         }
         else {

@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="icon" type="image/x-icon" href="/favicon.ico" th:href="@{/images/favicon.ico}" />
+	<link rel="icon" type="image/x-icon" href="/favicon.png" th:href="@{/images/favicon.png}" />
 	<title>Orders List</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -55,40 +55,43 @@
 		<thead>
 		<tr>
 			<th>Номер</th>
-			<th>Дилер</th>
+			<th>Покупець</th>
 			<th>Статус</th>
 			<th>Дата створення</th>
 			<th>Дата погодження</th>
 			<th>Дата Виконання</th>
-			<th>ТТН</th>
-			<th>Кількість</th>
-			<th>Модель</th>
+			<th>Місце поставки</th>
+			<th>Incoterms</th>
+			<th>Вага</th>
+			<th>Товар</th>
 		</tr>
 		</thead>
 		<tfoot>
 		<tr>
 			<th>Номер</th>
-			<th>Дилер</th>
+			<th>Покупець</th>
 			<th>Статус</th>
 			<th>Дата створення</th>
 			<th>Дата погодження</th>
 			<th>Дата Виконання</th>
-			<th>ТТН</th>
-			<th>Кількість</th>
-			<th>Модель</th>
+			<th>Місце поставки</th>
+			<th>Incoterms</th>
+			<th>Вага</th>
+			<th>Товар</th>
 		</tr>
 		</tfoot>
 		<tbody>
 		<tr th:each="order : ${allOrders}">
 			<td th:text="${order.id}">Id</td>
-			<td th:text="${order.company}">Company</td>
+			<td th:text="${order.buyer}">Buyer</td>
 			<td th:text="${order.status}">Status</td>
 			<td th:text="${order.startDate}?(${#dates.format(order.startDate, 'dd.MM.yyyy')}):(${order.startDate})">Creation Date</td>
 			<td th:text="${order.approveDate}?(${#dates.format(order.approveDate, 'dd.MM.yyyy')}):(${order.approveDate})">Approve Date</td>
 			<td th:text="${order.closeDate}?(${#dates.format(order.closeDate, 'dd.MM.yyyy')}):(${order.closeDate})">Approve Date</td>
-			<td th:text="${order.ttn}">Order TTN(NOVA POSHTA)</td>
-			<td th:text="${order.quantity}">Order Quantity</td>
-			<td th:text="${order.model}">Model</td>
+			<td th:text="${order.destination}">Destination</td>
+			<td th:text="${order.incoterms}">Incoterms</td>
+			<td th:text="${order.weight}">Weight</td>
+			<td th:text="${order.product}">Product</td>
 		</tr>
 		</tbody>
 	</table>

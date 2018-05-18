@@ -2,7 +2,6 @@ package com.siaivo.bid.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import java.util.Date;
 
 @Entity
@@ -21,14 +20,26 @@ public class Order {
     private Date approveDate;
     @Column(name = "close_date")
     private Date closeDate;
-    @Column(name = "quantity")
-    private int quantity;
+    @Column(name = "weight")
+    @NotEmpty(message = "*Будь ласка вкажіть вагу")
+    private Integer weight;
+    @Column(name = "estimatedPrice")
+    @NotEmpty(message = "*Будь ласка вкажіть ціну")
+    private Integer estimatedPrice;
+    @Column(name = "confirmedPrice")
+    private Integer confirmedPrice;
     @Column(name = "product")
     private String product;
+    @Column(name = "packingType")
+    private String packingType;
+    @Column(name = "currency")
+    private String currency;
     @Column(name = "buyer")
     private String incoterms;
     @Column(name = "incoterms")
     private String buyer;
+    @Column(name = "pallets")
+    private Boolean pallets;
     @Column(name = "comment")
     private String comment;
     @Column(name = "destination")
@@ -37,6 +48,46 @@ public class Order {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+    public String getPackingType() {
+        return packingType;
+    }
+
+    public void setPackingType(String packingType) {
+        this.packingType = packingType;
+    }
+
+    public Boolean getPallets() {
+        return pallets;
+    }
+
+    public void setPallets(Boolean pallets) {
+        this.pallets = pallets;
+    }
+
+    public Integer getEstimatedPrice() {
+        return estimatedPrice;
+    }
+
+    public void setEstimatedPrice(Integer estimatedPrice) {
+        this.estimatedPrice = estimatedPrice;
+    }
+
+    public Integer getConfirmedPrice() {
+        return confirmedPrice;
+    }
+
+    public void setConfirmedPrice(Integer confirmedPrice) {
+        this.confirmedPrice = confirmedPrice;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
     public int getId() {
         return id;
@@ -78,12 +129,12 @@ public class Order {
         this.closeDate = closeDate;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public User getUser() {

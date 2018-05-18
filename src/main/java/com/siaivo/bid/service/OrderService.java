@@ -15,7 +15,7 @@ public interface OrderService {
     void saveViasatOrder(Order order);
     void closeOrder(Order order);
     void confirmOrder(Order order);
-    void editOrder(Order order, int quantity);
+    void editOrder(Order order, int weight);
     List<Order> listAllOrders();
     List<Order> listViasatOrders();
     List<Order> listWarehouseOrders();
