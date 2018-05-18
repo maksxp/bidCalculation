@@ -60,6 +60,25 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
+						<label>Пакування</label>
+						<select th:field="*{packingType}">
+							<option th:value="polypropylene25KgBags">25 кг пп мішки</option>
+							<option th:value="paper25KgBags">25 кг бумажні мішки</option>
+							<option th:value="big-bag">big-bag</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<label>Піддони</label>
+						<select th:field="*{pallets}">
+							<option th:value="true">на піддонах</option>
+							<option th:value="false">без піддонів</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
 						<label>Умови поставки</label>
 						<select th:field="*{incoterms}">
 							<option th:value="FOB">FOB</option>
