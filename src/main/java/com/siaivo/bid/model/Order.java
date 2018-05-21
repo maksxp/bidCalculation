@@ -2,6 +2,8 @@ package com.siaivo.bid.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -20,11 +22,23 @@ public class Order {
     private Date approveDate;
     @Column(name = "close_date")
     private Date closeDate;
+    @Column(name = "release_month")
+    private Integer releaseMonth;
+    @Column(name = "release_year")
+    private Integer releaseYear;
     @Column(name = "weight")
-    @NotEmpty(message = "*Будь ласка вкажіть вагу")
+    @NotNull(message = "*Будь ласка вкажіть вагу")
+    @Min(value = 1, message = "Вага має бути не нуль")
     private Integer weight;
+    @Column(name = "purity")
+    @NotNull(message = "*Будь ласка вкажіть чистоту")
+    private Float purity;
+    @Column(name = "humidity")
+    @NotNull(message = "*Будь ласка вкажіть вологість")
+    private Float humidity;
     @Column(name = "estimatedPrice")
-    @NotEmpty(message = "*Будь ласка вкажіть ціну")
+    @NotNull(message = "*Будь ласка вкажіть ціну")
+    @Min(100)
     private Integer estimatedPrice;
     @Column(name = "confirmedPrice")
     private Integer confirmedPrice;
@@ -42,12 +56,55 @@ public class Order {
     private Boolean pallets;
     @Column(name = "comment")
     private String comment;
-    @Column(name = "destination")
+    @Column(name = "destination_place")
     @NotEmpty(message = "*Будь ласка вкажіть місце поставки")
-    private String destination;
+    private String destinationPlace;
+    @Column(name = "destination_country")
+    @NotEmpty(message = "*Будь ласка вкажіть місце поставки")
+    private String destinationCountry;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+    public String getDestinationCountry() {
+        return destinationCountry;
+    }
+
+    public void setDestinationCountry(String destinationCountry) {
+        this.destinationCountry = destinationCountry;
+    }
+
+    public Integer getReleaseMonth() {
+        return releaseMonth;
+    }
+
+    public void setReleaseMonth(Integer releaseMonth) {
+        this.releaseMonth = releaseMonth;
+    }
+
+    public Integer getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(Integer releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public Float getPurity() {
+        return purity;
+    }
+
+    public void setPurity(Float purity) {
+        this.purity = purity;
+    }
+
+    public Float getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Float humidity) {
+        this.humidity = humidity;
+    }
 
     public String getPackingType() {
         return packingType;
@@ -159,12 +216,12 @@ public class Order {
         this.comment = comment;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getDestinationPlace() {
+        return destinationPlace;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setDestinationPlace(String destination) {
+        this.destinationPlace = destinationPlace;
     }
 
     public String getIncoterms() {
