@@ -12,11 +12,11 @@ public interface OrderService {
     List<Order> findOrdersByStatus(String orderStatus);
     List<Order> findOrdersByDate(Date dateStart, Date dateEnd);
     void saveOrder(Order order);
-    void saveViasatOrder(Order order);
+    void saveSalesOrder(Order order);
     void closeOrder(Order order);
     void confirmOrder(Order order);
     void editOrder(Order order, int weight);
     List<Order> listAllOrders();
-    List<Order> listViasatOrders();
+    List<Order> listPendingApprovalOrders();
     List<Order> listWarehouseOrders();
 }

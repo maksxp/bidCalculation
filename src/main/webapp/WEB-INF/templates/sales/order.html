@@ -98,11 +98,15 @@
 							<option th:value="DAP">DAP</option>
 							<option th:value="CFR">CFR</option>
 						</select>
-                        <input type="text" th:field="*{destinationPlace}" placeholder="Місце поставки"
-                               class="form-control" /> <label
-                            th:if="${#fields.hasErrors('destinationPlace')}" th:errors="*{destinationPlace}"
-                            class="validation-message"></label>
-               					</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<input type="text" th:field="*{destinationPlace}" placeholder="Місце поставки"
+							   class="form-control" /> <label
+							th:if="${#fields.hasErrors('destinationPlace')}" th:errors="*{destinationPlace}"
+							class="validation-message"></label>
+					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">

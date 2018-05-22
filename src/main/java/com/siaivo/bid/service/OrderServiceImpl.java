@@ -53,11 +53,11 @@ public class OrderServiceImpl implements OrderService{
           orderRepository.save(order);
     }
     @Override
-    public void saveViasatOrder(Order order) {
+    public void saveSalesOrder(Order order) {
         int finalWeight = order.getWeight();
         order.setStartDate(new Date());
-        order.setStatus("В роботі");
-        order.setApproveDate(new Date());
+        order.setStatus("В закупках");
+//        order.setApproveDate(new Date());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user;
         user = userRepository.findByEmail(getEmail(principal));
@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.findAll();
     }
     @Override
-    public List<Order> listViasatOrders(){
+    public List<Order> listPendingApprovalOrders(){
         return orderRepository.findByStatusLike("На погодженні");
     }
     @Override

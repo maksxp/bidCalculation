@@ -1,27 +1,18 @@
 package com.siaivo.bid.controller;
 
-import com.siaivo.bid.model.Equipment;
 import com.siaivo.bid.model.Order;
 import com.siaivo.bid.model.User;
 import com.siaivo.bid.service.*;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.siaivo.bid.service.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
 
 
 @Controller
@@ -39,7 +30,7 @@ public class OrderController {
     private EquipmentService equipmentService;
 
     @RequestMapping(value= "/sales/order", method = RequestMethod.GET)
-    public ModelAndView createNewViasatOrder(){
+    public ModelAndView createNewOrder(){
         ModelAndView modelAndView = new ModelAndView();
         Order order = new Order ();
         modelAndView.addObject("order", order);
@@ -49,14 +40,14 @@ public class OrderController {
         return modelAndView;
     }
     @RequestMapping(value = "/sales/order", method = RequestMethod.POST)
-    public ModelAndView createNewViasatOrder(@Valid Order order, BindingResult bindingResult) {
+    public ModelAndView createNewOrder(@Valid Order order, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
              modelAndView.addObject("listAllProducts", productService.listAllProducts());
             modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
             modelAndView.setViewName("sales/order");
         } else {
-            orderService.saveViasatOrder(order);
+            orderService.saveSalesOrder(order);
             modelAndView.addObject("successMessage", "Заявку успішно створено");
             modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
             modelAndView.addObject("listAllProducts", productService.listAllProducts());
@@ -123,13 +114,13 @@ public class OrderController {
         modelAndView.setViewName("Warehouse/warehouseOrdersList");
         return modelAndView;
     }
-    @RequestMapping(value="sales/assignedOrdersList", method = RequestMethod.GET)
-    public ModelAndView viasatOrders(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("viasatOrders", orderService.listViasatOrders());
-        modelAndView.setViewName("sales/assignedOrdersList");
-        return modelAndView;
-    }
+//    @RequestMapping(value="sales/assignedOrdersList", method = RequestMethod.GET)
+//    public ModelAndView viasatOrders(){
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("viasatOrders", orderService.listViasatOrders());
+//        modelAndView.setViewName("sales/assignedOrdersList");
+//        return modelAndView;
+//    }
     @RequestMapping(value = "/sales/confirmOrder/{id}", method = RequestMethod.GET)
     public ModelAndView confirmOrder(@PathVariable(value = "id") int id){
         Order order =  orderService.findOrderById(id);
@@ -166,69 +157,5 @@ public class OrderController {
         modelAndView.addObject("order", order);
         modelAndView.setViewName("/Warehouse/closeOrder");
         return modelAndView;
-    }
-    @RequestMapping(value = "/Warehouse/closeOrder", method = RequestMethod.POST)
-    public ModelAndView warehouseEquipmentUpload (@RequestParam("myFile") MultipartFile myFile, @ModelAttribute("order") Order order) {
-        Set<String> uploadedSerial = new HashSet<>();
-        ModelAndView modelAndView = new ModelAndView();
-        order = orderService.findOrderById(order.getId());
-        uploadSerialNumbers(uploadedSerial, myFile);
-        if (!(uploadedSerial.size()==order.getWeight())){
-            modelAndView.addObject("order", order);
-            modelAndView.addObject("errorMessage", "Завантажено "+uploadedSerial.size()+ " тюнерів, а необхідно " + order.getWeight());
-            return modelAndView;
-        }
-        else {
-            List<Equipment> mainWarehouseEquipments = equipmentService.findByLocation("mainWarehouse");
-            List<Equipment> localWarehouseEquipments = equipmentService.findByLocation("localWarehouse");
-            List <String> allSerialInStock = getAllSerialInStock(mainWarehouseEquipments,localWarehouseEquipments);
-            List<String> uploadedSerialList = new ArrayList<>();
-            uploadedSerialList.addAll(uploadedSerial);
-            if (allSerialInStock.containsAll(uploadedSerialList)){
-                for (String serial : uploadedSerialList){
-                    equipmentService.editEquipmentLocation(serial);
-                }
-                modelAndView.addObject("successMessage", "Передано "+uploadedSerial.size()+ " тюнерів");
-                orderService.closeOrder(order);
-                return new ModelAndView("redirect:/Warehouse/allOrdersList");}
-            else
-            {
-                modelAndView.addObject("order", order);
-                modelAndView.addObject("errorMessage", "Завантажене обладнання неможливо передати оскільки воно відстунє на складі");
-                return modelAndView;
-            }
-        }
-    }
-    private static void uploadSerialNumbers (Set<String> uploadedSerial, MultipartFile myFile){
-        InputStream is = null;
-        try {
-            is = myFile.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        XSSFWorkbook wb = null;
-        try {
-            wb = new XSSFWorkbook(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Sheet sheet = wb.getSheetAt(0);
-        Iterator<Row> it = sheet.iterator();
-        while (it.hasNext()) {
-            Row row = it.next();
-            Iterator<Cell> cells = row.iterator();
-            while (cells.hasNext()) {
-                Cell cell = cells.next();
-                uploadedSerial.add(cell.getStringCellValue());
-            }
-        }
-    }
-    private static List <String> getAllSerialInStock (List<Equipment> mainWarehouseEquipment, List<Equipment> localWarehouseEquipment){
-        List<Equipment> allEquipmentInStock = new ArrayList<>();
-        allEquipmentInStock.addAll(mainWarehouseEquipment);
-        allEquipmentInStock.addAll(localWarehouseEquipment);
-        List <String> allSerialInStock = new ArrayList<>();
-        allEquipmentInStock.stream().forEach(equipment -> allSerialInStock.add(equipment.getSerialNumber()));
-                 return allSerialInStock;
     }
 }
