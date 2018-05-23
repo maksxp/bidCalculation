@@ -37,9 +37,9 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else if(authority.getAuthority().equalsIgnoreCase("WAREHOUSE")) {
+            }else if(authority.getAuthority().equalsIgnoreCase("purchase")) {
                 try {
-                    redirectStrategy.sendRedirect(request, response, "/Warehouse/warehouseOrdersList");
+                    redirectStrategy.sendRedirect(request, response, "/purchase/purchaseOrdersList");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

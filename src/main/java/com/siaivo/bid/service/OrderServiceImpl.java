@@ -73,8 +73,7 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.findByStatusLike("На погодженні");
     }
     @Override
-    public List<Order> listWarehouseOrders(){
-        return orderRepository.findByStatusLike("В роботі");
+    public List<Order> listPurchaseOrders(){ return orderRepository.findByStatusLike("В закупках");
     }
     @Override
     public void confirmOrder(Order order) {
@@ -88,12 +87,12 @@ public class OrderServiceImpl implements OrderService{
         order.setApproveDate(new Date());
         orderRepository.save(order);
     }
-    @Override
-    public void closeOrder(Order order) {
-        order.setCloseDate(new Date());
-        order.setStatus("Виконано");
-        orderRepository.save(order);
-    }
+//    @Override
+//    public void closeOrder(Order order) {
+//        order.setCloseDate(new Date());
+//        order.setStatus("Виконано");
+//        orderRepository.save(order);
+//    }
     private static String getEmail (Object principal){
         if (principal instanceof UserDetails) {
             String email = ((UserDetails)principal).getUsername();

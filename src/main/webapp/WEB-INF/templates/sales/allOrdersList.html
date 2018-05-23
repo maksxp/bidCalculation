@@ -73,7 +73,6 @@
 			<th>Статус</th>
 			<th>Дата створення</th>
 			<th>Дата погодження</th>
-			<th>Дата Виконання</th>
 			<th>Місце поставки</th>
 			<th>Incoterms</th>
 			<th>Вага</th>
@@ -87,7 +86,6 @@
 			<td th:text="${order.status}">Status</td>
 			<td th:text="${order.startDate}?(${#dates.format(order.startDate, 'dd.MM.yyyy')}):(${order.startDate})">Creation Date</td>
 			<td th:text="${order.approveDate}?(${#dates.format(order.approveDate, 'dd.MM.yyyy')}):(${order.approveDate})">Approve Date</td>
-			<td th:text="${order.closeDate}?(${#dates.format(order.closeDate, 'dd.MM.yyyy')}):(${order.closeDate})">Approve Date</td>
 			<td th:text="${order.destinationPlace}">Destination</td>
 			<td th:text="${order.incoterms}">Incoterms</td>
 			<td th:text="${order.weight}">Weight</td>

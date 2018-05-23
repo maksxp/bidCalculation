@@ -94,24 +94,25 @@ public class OrderController {
         return modelAndView;
     }
     @RequestMapping(value="sales/allOrdersList", method = RequestMethod.GET)
-    public ModelAndView allOrders(){
+    public ModelAndView salesAllOrders(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("allOrders", orderService.listAllOrders());
         modelAndView.setViewName("sales/allOrdersList");
         return modelAndView;
     }
-    @RequestMapping(value="Warehouse/allOrdersList", method = RequestMethod.GET)
-    public ModelAndView warehouseAllOrders(){
+    @RequestMapping(value= "purchase/allOrdersList", method = RequestMethod.GET)
+    public ModelAndView purchaseAllOrders(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("allOrders", orderService.listAllOrders());
-        modelAndView.setViewName("Warehouse/allOrdersList");
+        modelAndView.addObject("purchaseAllOrders", orderService.listAllOrders());
+        modelAndView.setViewName("purchase/allOrdersList");
         return modelAndView;
     }
-    @RequestMapping(value="Warehouse/warehouseOrdersList", method = RequestMethod.GET)
-    public ModelAndView warehouseOrders(){
+    @RequestMapping(value="purchase/purchaseOrdersList", method = RequestMethod.GET)
+    public ModelAndView purchaseOrders(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("warehouseOrders", orderService.listWarehouseOrders());
-        modelAndView.setViewName("Warehouse/warehouseOrdersList");
+        modelAndView.addObject("purchaseOrders", orderService.listPurchaseOrders());
+        System.out.println(orderService.listPurchaseOrders().iterator().next().getStatus());
+        modelAndView.setViewName("purchase/purchaseOrdersList");
         return modelAndView;
     }
 //    @RequestMapping(value="sales/assignedOrdersList", method = RequestMethod.GET)
@@ -150,12 +151,12 @@ public class OrderController {
         modelAndView.addObject("successMessage", "Зміни успішно внесено");
         return modelAndView;
     }
-    @RequestMapping(value = "/Warehouse/closeOrder/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/purchase/closeOrder/{id}", method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable(value = "id") int id){
         ModelAndView modelAndView = new ModelAndView();
         Order order =  orderService.findOrderById(id);
         modelAndView.addObject("order", order);
-        modelAndView.setViewName("/Warehouse/closeOrder");
+        modelAndView.setViewName("/purchase/closeOrder");
         return modelAndView;
     }
 }

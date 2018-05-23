@@ -20,8 +20,6 @@ public class Order {
     private Date startDate;
     @Column(name = "approve_date")
     private Date approveDate;
-    @Column(name = "close_date")
-    private Date closeDate;
     @Column(name = "release_month")
     private Integer releaseMonth;
     @Column(name = "release_year")
@@ -60,11 +58,20 @@ public class Order {
     @NotEmpty(message = "*Будь ласка вкажіть місце поставки")
     private String destinationPlace;
     @Column(name = "destination_country")
-    @NotEmpty(message = "*Будь ласка вкажіть місце поставки")
+    @NotEmpty(message = "*Будь ласка вкажіть країну поставки")
     private String destinationCountry;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+
+    public String getDestinationPlace() {
+        return destinationPlace;
+    }
+
+    public void setDestinationPlace(String destinationPlace) {
+        this.destinationPlace = destinationPlace;
+    }
 
     public String getDestinationCountry() {
         return destinationCountry;
@@ -178,14 +185,6 @@ public class Order {
         this.approveDate = approveDate;
     }
 
-    public Date getCloseDate() {
-        return closeDate;
-    }
-
-    public void setCloseDate(Date closeDate) {
-        this.closeDate = closeDate;
-    }
-
     public Integer getWeight() {
         return weight;
     }
@@ -214,14 +213,6 @@ public class Order {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public String getDestinationPlace() {
-        return destinationPlace;
-    }
-
-    public void setDestinationPlace(String destination) {
-        this.destinationPlace = destinationPlace;
     }
 
     public String getIncoterms() {

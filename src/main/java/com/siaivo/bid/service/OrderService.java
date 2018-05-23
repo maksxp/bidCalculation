@@ -13,10 +13,10 @@ public interface OrderService {
     List<Order> findOrdersByDate(Date dateStart, Date dateEnd);
     void saveOrder(Order order);
     void saveSalesOrder(Order order);
-    void closeOrder(Order order);
+//    void closeOrder(Order order);
     void confirmOrder(Order order);
     void editOrder(Order order, int weight);
     List<Order> listAllOrders();
     List<Order> listPendingApprovalOrders();
-    List<Order> listWarehouseOrders();
+    List<Order> listPurchaseOrders();
 }
