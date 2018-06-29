@@ -16,7 +16,7 @@ public interface OrderService {
 //    void closeOrder(Order order);
     void confirmOrder(Order order);
     void editOrder(Order order, int weight);
-    List<Order> listAllOrders();
-    List<Order> listPendingApprovalOrders();
-    List<Order> listPurchaseOrders();
+    List<Order> allOrdersList();
+    List<Order> inWorkOrdersList();
+    List<Order> purchaseOrdersList();
 }

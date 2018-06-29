@@ -21,20 +21,14 @@
 				<button class="btn btn-md btn-link btn-block" type="Submit">ви увійшли як  <span th:text="${#httpServletRequest.remoteUser}"> </span></button>
 			</form>
 		</div>
-
 		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
-			<form th:action="@{/sales/allEquipments}" method="get">
-				<button class="btn btn-md btn-success btn-block" type="Submit">Все обладнання</button>
+			<form th:action="@{/sales/inWorkOrdersList}" method="get">
+				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки в роботі</button>
 			</form>
 		</div>
 		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
-			<form th:action="@{/sales/allCompanies}" method="get">
-				<button class="btn btn-md btn-success btn-block" type="Submit">Всі організації та партнери</button>
-			</form>
-		</div>
-		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
-			<form th:action="@{/sales/assignedOrdersList}" method="get">
-				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки на погодженні</button>
+			<form th:action="@{/sales/approvedOrdersList}" method="get">
+				<button class="btn btn-md btn-info btn-block" type="Submit">Погоджені заявки</button>
 			</form>
 		</div>
 		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
@@ -59,7 +53,6 @@
 			<th>Статус</th>
 			<th>Дата створення</th>
 			<th>Дата погодження</th>
-			<th>Дата Виконання</th>
 			<th>Місце поставки</th>
 			<th>Incoterms</th>
 			<th>Вага</th>
@@ -80,7 +73,7 @@
 		</tr>
 		</tfoot>
 		<tbody>
-		<tr th:each="order : ${allOrders}">
+		<tr th:each="order : ${allOrdersList}">
 			<td th:text="${order.id}">Id</td>
 			<td th:text="${order.buyer}">Buyer</td>
 			<td th:text="${order.status}">Status</td>

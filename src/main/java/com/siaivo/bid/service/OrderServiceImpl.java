@@ -65,15 +65,14 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(order);
     }
     @Override
-    public List<Order> listAllOrders(){
+    public List<Order> allOrdersList(){
         return orderRepository.findAll();
     }
     @Override
-    public List<Order> listPendingApprovalOrders(){
-        return orderRepository.findByStatusLike("На погодженні");
+    public List<Order> inWorkOrdersList(){ return orderRepository.findByStatusNotLike("Погоджений");
     }
     @Override
-    public List<Order> listPurchaseOrders(){ return orderRepository.findByStatusLike("В закупках");
+    public List<Order> purchaseOrdersList(){ return orderRepository.findByStatusLike("В закупках");
     }
     @Override
     public void confirmOrder(Order order) {

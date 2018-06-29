@@ -13,4 +13,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByProduct(String product);
     List<Order> findByStatusLike(String orderStatus);
     List<Order> findByStartDateBetween(Date dateStart, Date dateEnd);
+    List<Order> findByStatusNotLike(String orderStatus);
 }

@@ -26,8 +26,6 @@ public class OrderController {
     private BuyerService buyerService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private EquipmentService equipmentService;
 
     @RequestMapping(value= "/sales/order", method = RequestMethod.GET)
     public ModelAndView createNewOrder(){
@@ -93,25 +91,46 @@ public class OrderController {
         modelAndView.setViewName("DTH/ordersList");
         return modelAndView;
     }
-    @RequestMapping(value="sales/allOrdersList", method = RequestMethod.GET)
-    public ModelAndView salesAllOrders(){
+    @RequestMapping(value={"sales/allOrdersList", "purchase/allOrdersList"}, method = RequestMethod.GET)
+    public ModelAndView allOrders(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("allOrders", orderService.listAllOrders());
-        modelAndView.setViewName("sales/allOrdersList");
+        modelAndView.addObject("allOrdersList", orderService.allOrdersList());
+       // modelAndView.setViewName("sales/allOrdersList");
         return modelAndView;
     }
-    @RequestMapping(value= "purchase/allOrdersList", method = RequestMethod.GET)
-    public ModelAndView purchaseAllOrders(){
+//    @RequestMapping(value="sales/allOrdersList", method = RequestMethod.GET)
+//    public ModelAndView salesAllOrders(){
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("allOrdersList", orderService.allOrdersList());
+//        modelAndView.setViewName("sales/allOrdersList");
+//        return modelAndView;
+//    }
+    @RequestMapping(value="sales/inWorkOrdersList", method = RequestMethod.GET)
+     public ModelAndView salesInWorkOrdersList(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("purchaseAllOrders", orderService.listAllOrders());
-        modelAndView.setViewName("purchase/allOrdersList");
+        modelAndView.addObject("inWorkOrdersList", orderService.inWorkOrdersList());
+        modelAndView.setViewName("sales/inWorkOrdersList");
         return modelAndView;
     }
+    @RequestMapping(value="sales/approvedOrdersList", method = RequestMethod.GET)
+    public ModelAndView salesApprovedOrdersList(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("inWorkOrdersList", orderService.inWorkOrdersList());
+        modelAndView.setViewName("sales/inWorkOrdersList");
+        return modelAndView;
+    }
+//    @RequestMapping(value= "purchase/allOrdersList", method = RequestMethod.GET)
+//    public ModelAndView purchaseAllOrdersList(){
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("allOrdersList", orderService.allOrdersList());
+//        modelAndView.setViewName("purchase/allOrdersList");
+//        return modelAndView;
+//    }
+
     @RequestMapping(value="purchase/purchaseOrdersList", method = RequestMethod.GET)
     public ModelAndView purchaseOrders(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("purchaseOrders", orderService.listPurchaseOrders());
-        System.out.println(orderService.listPurchaseOrders().iterator().next().getStatus());
+        modelAndView.addObject("purchaseOrdersList", orderService.purchaseOrdersList());
         modelAndView.setViewName("purchase/purchaseOrdersList");
         return modelAndView;
     }
