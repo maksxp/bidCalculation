@@ -98,13 +98,6 @@ public class OrderController {
        // modelAndView.setViewName("sales/allOrdersList");
         return modelAndView;
     }
-//    @RequestMapping(value="sales/allOrdersList", method = RequestMethod.GET)
-//    public ModelAndView salesAllOrders(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("allOrdersList", orderService.allOrdersList());
-//        modelAndView.setViewName("sales/allOrdersList");
-//        return modelAndView;
-//    }
     @RequestMapping(value="sales/inWorkOrdersList", method = RequestMethod.GET)
      public ModelAndView salesInWorkOrdersList(){
         ModelAndView modelAndView = new ModelAndView();
@@ -119,13 +112,6 @@ public class OrderController {
         modelAndView.setViewName("sales/inWorkOrdersList");
         return modelAndView;
     }
-//    @RequestMapping(value= "purchase/allOrdersList", method = RequestMethod.GET)
-//    public ModelAndView purchaseAllOrdersList(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("allOrdersList", orderService.allOrdersList());
-//        modelAndView.setViewName("purchase/allOrdersList");
-//        return modelAndView;
-//    }
 
     @RequestMapping(value="purchase/purchaseOrdersList", method = RequestMethod.GET)
     public ModelAndView purchaseOrders(){
@@ -134,13 +120,7 @@ public class OrderController {
         modelAndView.setViewName("purchase/purchaseOrdersList");
         return modelAndView;
     }
-//    @RequestMapping(value="sales/assignedOrdersList", method = RequestMethod.GET)
-//    public ModelAndView viasatOrders(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("viasatOrders", orderService.listViasatOrders());
-//        modelAndView.setViewName("sales/assignedOrdersList");
-//        return modelAndView;
-//    }
+
     @RequestMapping(value = "/sales/confirmOrder/{id}", method = RequestMethod.GET)
     public ModelAndView confirmOrder(@PathVariable(value = "id") int id){
         Order order =  orderService.findOrderById(id);
