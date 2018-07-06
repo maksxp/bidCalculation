@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<link rel="icon" type="image/x-icon" href="/favicon.png" th:href="@{/images/favicon.png}" />
-	<title>Order Creation Form</title>
+	<title>Закриття заявки</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -38,9 +38,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<form autocomplete="off" action="#" th:action="@{/sales/order}"
+			<form autocomplete="off" action="#" th:action="@{/purchase/closeOrder}"
 				  th:object="${order}" method="post" class="form-horizontal" role="form">
-				<h2>Форма створення заявки</h2>
+
 				<div class="form-group">
 					<div class="col-sm-9">
 						<label>Товар</label>

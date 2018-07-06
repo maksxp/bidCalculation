@@ -19,4 +19,5 @@ public interface OrderService {
     List<Order> allOrdersList();
     List<Order> inWorkOrdersList();
     List<Order> purchaseOrdersList();
+    List<Order> approvedOrdersList();
 }

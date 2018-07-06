@@ -52,9 +52,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			authorizeRequests()
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
-				.antMatchers("/dth/**").hasAuthority("dth")
-				.antMatchers("/viasat/**").hasAuthority("viasat")
-				.antMatchers("/warehouse/**").hasAuthority("warehouse")
+				.antMatchers("/sales/**").hasAuthority("sales")
+				.antMatchers("/purchase/**").hasAuthority("purchase")
+				.antMatchers("/logist/**").hasAuthority("logist")
 //				please comment line below to allow creation of admin user
 				.antMatchers("/admin/**").hasAuthority("admin")
 //				please uncomment line below to permit access to admin folder for all

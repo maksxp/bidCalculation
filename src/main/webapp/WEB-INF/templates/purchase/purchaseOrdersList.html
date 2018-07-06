@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<link rel="icon" type="image/x-icon" href="/favicon.png" th:href="@{/images/favicon.png}" />
-	<title>Orders List</title>
+	<title>Заявки в роботі</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 		<!--data tables-->
@@ -63,8 +63,8 @@
 		</tr>
 		</tfoot>
 		<tbody>
-		<tr th:each="order : ${purchaseOrders}">
-			<td th:text="${order.id}">Id</td>
+		<tr th:each="order : ${purchaseOrdersList}">
+			<td> <a th:href="${'/purchase/closeOrder/' + order.id}"> <span th:text="${order.id}"></span></a></td>
 			<td th:text="${order.buyer}">Buyer</td>
 			<td th:text="${order.status}">Status</td>
 			<td th:text="${order.startDate}?(${#dates.format(order.startDate, 'dd.MM.yyyy')}):(${order.startDate})">Creation Date</td>

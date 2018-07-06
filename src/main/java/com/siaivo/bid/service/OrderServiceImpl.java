@@ -75,6 +75,9 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> purchaseOrdersList(){ return orderRepository.findByStatusLike("В закупках");
     }
     @Override
+    public List<Order> approvedOrdersList(){ return orderRepository.findByStatusLike("Погоджений");
+    }
+    @Override
     public void confirmOrder(Order order) {
         order.setApproveDate(new Date());
         order.setStatus("В роботі");
