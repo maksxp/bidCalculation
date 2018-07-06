@@ -12,7 +12,7 @@
     <facet type="web" name="Web Gradle : bidCalculation.war">
       <configuration>
         <webroots>
-          <root url="file://D:\java\src\main\webapp" relative="/" />
+          <root url="file://D:\JavaProjects\BidCalculation\bidCalculation\src\main\webapp" relative="/" />
         </webroots>
       </configuration>
     </facet>
