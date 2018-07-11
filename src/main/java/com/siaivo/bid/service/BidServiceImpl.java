@@ -42,15 +42,9 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public void saveBid(Bid bid) {
-          int finalWeight = bid.getWeightForSale();
-          bid.setCreationDate(new Date());
-          bid.setStatus("На погодженні");
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user;
-        user = userRepository.findByEmail(getEmail(principal));
-         bid.setUser(user);
-          bidRepository.save(bid);
+    public void savePurchaseBid(Bid bid) {
+            bid.setStatus("У логіста");
+            bidRepository.save(bid);
     }
     @Override
     public void saveSalesBid(Bid bid) {

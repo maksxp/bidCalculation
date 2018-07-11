@@ -25,7 +25,7 @@
         </div>
 		<div class=" col-md-4 col-xs-12 col-sm-4 col-lg-4" >
 			<form th:action="@{/purchase/inWorkBidsList}" method="get">
-				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки на погодженні</button>
+				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки в роботі</button>
 			</form>
 		</div>
 		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
@@ -43,123 +43,97 @@
 
 				<div class="form-group">
 					<div class="col-sm-9">
-						<label>Товар</label>
-						<select th:field="*{product}">
-							<option th:each="product : ${listAllProducts}" th:value="${{product.name}}" th:text="${product.name}">
-							</option>
+						<p> Необхідно <b th:text="${bid.product}"></b></p>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<form autocomplete="off" action="#" th:action="@{/purchase/closeBid}"
+				  th:object="${purchaseData}" method="post" class="form-horizontal" role="form">
+
+				<div class="form-group">
+					<div class="col-sm-9">
+						<label>Країна закупівлі</label>
+						<select th:field="*{sourceCountry}">
+							<option th:value="Україна">Україна</option>
+							<option th:value="Росія">Росія</option>
+							<option th:value="Казахстан">Казахстан</option>
 						</select>
 					</div>
 				</div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" th:field="*{purityForSale}"
-                               placeholder="Чистота. Наприклад 99.9"  class="form-control" />
-                        <label th:if="${#fields.hasErrors('purityForSale')}" th:errors="*{purityForSale}"
-                               class="validation-message"></label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" th:field="*{humidityForSale}"
-                               placeholder="Вологість. Наприклад 7.5"  class="form-control" />
-                        <label th:if="${#fields.hasErrors('humidityForSale')}" th:errors="*{humidityForSale}"
-                               class="validation-message"></label>
-                    </div>
-                </div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{weightForSale}"
-							   placeholder="Вага у тонах"  class="form-control" />
-						<label th:if="${#fields.hasErrors('weightForSale')}" th:errors="*{weightForSale}"
+						<input type="text" th:field="*{sourcePlace}"
+							   placeholder="Місце закупівлі"  class="form-control" />
+						<label th:if="${#fields.hasErrors('sourcePlace')}" th:errors="*{sourcePlace}"
+							   class="validation-message"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<input type="text" th:field="*{purchaseWeight}"
+							   placeholder="Вага"  class="form-control" />
+						<label th:if="${#fields.hasErrors('purchaseWeight')}" th:errors="*{purchaseWeight}"
+							   class="validation-message"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<input type="text" th:field="*{purchasePrice}"
+							   placeholder="Ціна закупівлі"  class="form-control" />
+						<label th:if="${#fields.hasErrors('purchasePrice')}" th:errors="*{purchasePrice}"
+							   class="validation-message"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<label>Валюта контракту</label>
+						<select th:field="*{purchaseCurrency}">
+							<option th:value="UAH">UAH</option>
+							<option th:value="EUR">EUR</option>
+							<option th:value="USD">USD</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<input type="text" th:field="*{purchaseAdmixture}"
+							   placeholder="Смітна"  class="form-control" />
+						<label th:if="${#fields.hasErrors('purchaseAdmixture')}" th:errors="*{purchaseAdmixture}"
+							   class="validation-message"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<input type="text" th:field="*{purchaseHumidity}"
+							   placeholder="Вологість"  class="form-control" />
+						<label th:if="${#fields.hasErrors('purchaseHumidity')}" th:errors="*{purchaseHumidity}"
 							   class="validation-message"></label>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
 						<label>Пакування</label>
-						<select th:field="*{packingTypeForSale}">
+						<select th:field="*{purchasePackingType}">
 							<option th:value="polypropylene25KgBags">25 кг пп мішки</option>
 							<option th:value="paper25KgBags">25 кг бумажні мішки</option>
 							<option th:value="big-bag">big-bag</option>
 						</select>
-                        <select th:field="*{pallets}">
-                            <option th:value="true">на піддонах</option>
-                            <option th:value="false">без піддонів</option>
-                        </select>
-					</div>
-				</div>
-		       	<div class="form-group">
-					<div class="col-sm-9">
-						<label>Умови поставки</label>
-						<select th:field="*{incoterms}">
-							<option th:value="FOB">FOB</option>
-							<option th:value="FCA">FCA</option>
-							<option th:value="DDU">DDU</option>
-							<option th:value="DAP">DAP</option>
-							<option th:value="CFR">CFR</option>
-						</select>
+						<select th:field="*{pallets}">
+							<option th:value="false">без піддонів</option>
+							<option th:value="true">на піддонах</option>
+							</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{destinationCountry}" placeholder="Країна поставки"
-							   class="form-control" /> <label
-							th:if="${#fields.hasErrors('destinationCountry')}" th:errors="*{destinationCountry}"
-							class="validation-message"></label>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<input type="text" th:field="*{destinationPlace}" placeholder="Місце поставки"
-							   class="form-control" /> <label
-							th:if="${#fields.hasErrors('destinationPlace')}" th:errors="*{destinationPlace}"
-							class="validation-message"></label>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<label>Покупець</label>
-						<select bidId="buyer" name="buyer" th:field="*{buyer}">
-							<option th:each="buyer: ${listAllBuyers}" th:value="${buyer.name}" th:text="${buyer.name}"></option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<input type="text" th:field="*{estimatedSalePrice}" placeholder="Прогнозована ціна"
-							   class="form-control" /> <label
-							th:if="${#fields.hasErrors('estimatedSalePrice')}" th:errors="*{estimatedSalePrice}"
-							class="validation-message"></label>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<label>Валюта контракту</label>
-                      	<select th:field="*{saleCurrency}">
-							<option th:value="EUR">EUR</option>
-							<option th:value="USD">USD</option>
-							<option th:value="UAH">UAH</option>
-						</select>
-					</div>
-				</div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label>Графік відвантажень</label>
-                        <select th:field="*{productReleaseMonth}">
-                            <option th:value="1">Січень</option>
-                            <option th:value="2">Лютий</option>
-                            <option th:value="3">Березень</option>
-                        </select>
-                        <select th:field="*{productReleaseYear}">
-                            <option th:value="2018">2018</option>
-                            <option th:value="2019">2019</option>
-                            <option th:value="2020">2020</option>
-                        </select>
-                    </div>
-                </div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<button type="submit" class="btn btn-primary btn-block">Створити заявку</button>
+						<button type="submit" class="btn btn-primary btn-block">Закрити заявку</button>
 					</div>
 				</div>
 

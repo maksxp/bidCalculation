@@ -11,7 +11,7 @@ public interface BidService {
     Bid findBidByBidId(int bidId);
     List<Bid> findBidsByStatus(String orderStatus);
     List<Bid> findBidsByDate(Date dateStart, Date dateEnd);
-    void saveBid(Bid bid);
+    void savePurchaseBid(Bid bid);
     void saveSalesBid(Bid bid);
 //    void closeOrder(Bid order);
     void confirmBid(Bid bid);
