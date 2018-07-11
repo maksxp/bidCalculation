@@ -33,7 +33,7 @@
 </div>
 <div class="container">
 	<h2>Список заявок</h2>
-	<table id="tables" class="display" cellspacing="0" width="100%">
+	<table bidId="tables" class="display" cellspacing="0" width="100%">
 		<thead>
 		<tr>
 			<th>Номер</th>
@@ -62,10 +62,10 @@
 		</tfoot>
 		<tbody>
 		<tr th:each="order : ${allOrders}">
-			<td th:text="${order.id}">Id</td>
+			<td th:text="${order.bidId}">Id</td>
 			<td th:text="${order.company}">Name</td>
 			<td th:text="${order.status}">Status</td>
-			<td th:text="${order.startDate}?(${#dates.format(order.startDate, 'dd.MM.yyyy')}):(${order.startDate})">Creation Date</td>
+			<td th:text="${order.creationDate}?(${#dates.format(order.creationDate, 'dd.MM.yyyy')}):(${order.creationDate})">Creation Date</td>
 			<td th:text="${order.approveDate}?(${#dates.format(order.approveDate, 'dd.MM.yyyy')}):(${order.approveDate})">Approve Date</td>
 			<td th:text="${order.closeDate}?(${#dates.format(order.closeDate, 'dd.MM.yyyy')}):(${order.closeDate})">Approve Date</td>
 			<td th:text="${order.ttn}">Order TTN(NOVA POSHTA)</td>

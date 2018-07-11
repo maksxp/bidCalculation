@@ -40,12 +40,12 @@
 			<form autocomplete="off" action="#" th:action="@{/Warehouse/closeOrder}"
 				 method="post" th:object="${order}" enctype="multipart/form-data" class="form-horizontal" role="form">
 
-				<input type="hidden" th:field="*{id}"/>
+				<input type="hidden" th:field="*{bidId}"/>
 					<div class="order">
 				<table class="order" width="100%" cellspacing="0" border="0">
 					<tr>
 						<th><h5>Заявка №</h5></th>
-						<th><h5><label th:text="*{id}"></label></h5></th>
+						<th><h5><label th:text="*{bidId}"></label></h5></th>
 					</tr>
 					<tr>
 						<th><h5>Модель</h5></th>

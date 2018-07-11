@@ -32,11 +32,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<form autocomplete="off" action="#" th:action="@{/viasat/editOrder}"
-				  th:object="${order}" method="post" class="form-horizontal" role="form">
+			<form autocomplete="off" action="#" th:action="@{/viasat/editBid}"
+				  th:object="${bid}" method="post" class="form-horizontal" role="form">
 				<h2>Форма редагування заявки</h2>
 
-				<input type="hidden" th:field="*{id}"/>
+				<input type="hidden" th:field="*{bidId}"/>
 
 				<div class="form-group">
 					<div class="col-sm-9">

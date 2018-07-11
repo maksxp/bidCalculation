@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<link rel="icon" type="image/x-icon" href="/favicon.png" th:href="@{/images/favicon.png}" />
-	<title>Всі заявки</title>
+	<title>Погоджені заявки</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 		<!--data tables-->
@@ -21,10 +21,19 @@
 				<button class="btn btn-md btn-link btn-block" type="Submit">ви увійшли як  <span th:text="${#httpServletRequest.remoteUser}"> </span></button>
 			</form>
 		</div>
-
-		<div class=" col-md-8 col-xs-12 col-sm-8 col-lg-8" >
-			<form th:action="@{/purchase/purchaseOrdersList}" method="get">
+		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
+			<form th:action="@{/sales/allBidsList}" method="get">
+				<button class="btn btn-md btn-info btn-block" type="Submit">Всі заявки</button>
+			</form>
+		</div>
+		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
+			<form th:action="@{/sales/inWorkBidsList}" method="get">
 				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки в роботі</button>
+			</form>
+		</div>
+		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
+			<form th:action="@{/sales/bid}" method="get">
+				<button class="btn btn-md btn-warning btn-block" type="Submit">Створити заявку</button>
 			</form>
 		</div>
 		<div class=" col-md-1 col-xs-12 col-sm-1 col-lg-1" >
@@ -36,7 +45,7 @@
 </div>
 <div class="container">
 	<h2>Список заявок</h2>
-	<table id="tables" class="display" cellspacing="0" width="100%">
+	<table bidId="tables" class="display" cellspacing="0" width="100%">
 		<thead>
 		<tr>
 			<th>Номер</th>
@@ -64,16 +73,16 @@
 		</tr>
 		</tfoot>
 		<tbody>
-		<tr th:each="order : ${allOrdersList}">
-			<td th:text="${order.id}">Id</td>
-			<td th:text="${order.buyer}">Buyer</td>
-			<td th:text="${order.status}">Status</td>
-			<td th:text="${order.startDate}?(${#dates.format(order.startDate, 'dd.MM.yyyy')}):(${order.startDate})">Creation Date</td>
-			<td th:text="${order.approveDate}?(${#dates.format(order.approveDate, 'dd.MM.yyyy')}):(${order.approveDate})">Approve Date</td>
-			<td th:text="${order.destinationPlace}">Destination</td>
-			<td th:text="${order.incoterms}">Incoterms</td>
-			<td th:text="${order.weight}">Weight</td>
-			<td th:text="${order.product}">Product</td>
+		<tr th:each="bid : ${approvedBidsList}">
+			<td th:text="${bid.bidId}">Id</td>
+			<td th:text="${bid.buyer}">Buyer</td>
+			<td th:text="${bid.status}">Status</td>
+			<td th:text="${bid.creationDate}?(${#dates.format(bid.creationDate, 'dd.MM.yyyy')}):(${bid.creationDate})">Creation Date</td>
+			<td th:text="${bid.approveDate}?(${#dates.format(bid.approveDate, 'dd.MM.yyyy')}):(${bid.approveDate})">Approve Date</td>
+			<td th:text="${bid.destinationPlace}">Destination</td>
+			<td th:text="${bid.incoterms}">Incoterms</td>
+			<td th:text="${bid.weightForSale}">Weight</td>
+			<td th:text="${bid.product}">Product</td>
 		</tr>
 		</tbody>
 	</table>
