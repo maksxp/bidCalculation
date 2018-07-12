@@ -24,7 +24,7 @@
 	      </form>
         </div>
 		<div class=" col-md-4 col-xs-12 col-sm-4 col-lg-4" >
-			<form th:action="@{/purchase/inWorkBidsList}" method="get">
+			<form th:action="@{/purchase/purchaseBidsList}" method="get">
 				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки в роботі</button>
 			</form>
 		</div>
@@ -39,14 +39,15 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<form autocomplete="off" action="#" th:action="@{/purchase/closeBid}"
-				  th:object="${bid}" method="post" class="form-horizontal" role="form">
+					  th:object="${bid}" method="post" class="form-horizontal" role="form">
+					<h2>Форма закриття заявки</h2>
+				<input type="hidden" th:field="*{bidId}"/>
 
 				<div class="form-group">
 					<div class="col-sm-9">
 						<p> Необхідно <b th:text="${bid.product}"></b></p>
 					</div>
 				</div>
-
 			</form>
 		</div>
 	</div>
@@ -56,6 +57,7 @@
 		<div class="col-md-6 col-md-offset-3">
 			<form autocomplete="off" action="#" th:action="@{/purchase/closeBid}"
 				  th:object="${purchaseData}" method="post" class="form-horizontal" role="form">
+
 
 				<div class="form-group">
 					<div class="col-sm-9">

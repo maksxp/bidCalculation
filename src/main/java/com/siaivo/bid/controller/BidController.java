@@ -5,6 +5,8 @@ import com.siaivo.bid.model.PurchaseData;
 import com.siaivo.bid.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+
 
 
 @Controller
@@ -27,6 +30,7 @@ public class BidController {
     private ProductService productService;
     @Autowired
     private PurchaseDataService purchaseDataService;
+    private Bid bid;
 
     @RequestMapping(value = "/sales/bid", method = RequestMethod.GET)
     public ModelAndView createNewBid() {
@@ -89,7 +93,6 @@ public class BidController {
         modelAndView.setViewName("purchase/purchaseBidsList");
         return modelAndView;
     }
-
     @RequestMapping(value = "/sales/confirmBid/{bidId}", method = RequestMethod.GET)
     public ModelAndView confirmBid(@PathVariable(value = "bidId") int bidId) {
         Bid bid = bidService.findBidByBidId(bidId);
@@ -103,51 +106,58 @@ public class BidController {
         return new ModelAndView("redirect:/viasat/allBidsLists");
     }
 
-    @RequestMapping(value = "/purchase/editBid/{id}", method = RequestMethod.GET)
-    public ModelAndView purchaseEditBid(@PathVariable(value = "id") int bidId) {
+//      @RequestMapping(value = "/purchase/closeBid/{bidId}", method = RequestMethod.GET)
+//        public ModelAndView purchaseCloseBid(@PathVariable(value = "bidId") int bidId ) {
+//       ModelAndView modelAndView = new ModelAndView();
+//        Bid bid = bidService.findBidByBidId(bidId);
+//        modelAndView.addObject("bid", bid);
+//        modelAndView.setViewName("/purchase/closeBid");
+//        return modelAndView;
+//      }
+//
+//    @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
+//    public ModelAndView purchaseCloseBid(@ModelAttribute("bid") Bid bid) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        System.out.println(bid.getDestinationPlace()+" first");
+//        modelAndView.addObject("successMessage", "Заявку успішно створено");
+//        return modelAndView;
+//    }
+
+    @RequestMapping(value = "/purchase/closeBid/{bidId}", method = RequestMethod.GET)
+    public ModelAndView editOrder(@PathVariable(value = "bidId") int bidId){
         ModelAndView modelAndView = new ModelAndView();
-        Bid bid = bidService.findBidByBidId(bidId);
+        Bid bid =  bidService.findBidByBidId(bidId);
         modelAndView.addObject("bid", bid);
-        modelAndView.setViewName("purchase/editBid");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/purchase/editBid", method = RequestMethod.POST)
-    public ModelAndView purchaseEditBid(@ModelAttribute("bid") Bid bid) {
-        ModelAndView modelAndView = new ModelAndView();
-        int weight = bid.getWeightForSale();
-        int bidId = bid.getBidId();
-        bid = bidService.findBidByBidId(bidId);
-        bidService.editBid(bid, weight);
-        modelAndView.addObject("successMessage", "Заявку успішно закрито");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/purchase/closeBid/{id}", method = RequestMethod.GET)
-    public ModelAndView purchaseCloseBid(@PathVariable(value = "id") int bidId) {
-        ModelAndView modelAndView = new ModelAndView();
-        Bid bid = bidService.findBidByBidId(bidId);
         PurchaseData purchaseData = new PurchaseData();
-        modelAndView.addObject("bid", bid);
         modelAndView.addObject("purchaseData", purchaseData);
-        modelAndView.setViewName("/purchase/closeBid");
+        modelAndView.setViewName("purchase/closeBid");
         return modelAndView;
     }
-
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
-    public ModelAndView purchaseCloseBid(@ModelAttribute("bid") Bid bid, @Valid PurchaseData purchaseData, BindingResult bindingResult) {
+    public ModelAndView editOrder(@ModelAttribute("bid")Bid bid, @Valid PurchaseData purchaseData, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-                List<FieldError> errors = bindingResult.getFieldErrors();
-        for (FieldError error : errors ) {
-            System.out.println (error.getObjectName() + " - " + error.getDefaultMessage());
-        }
+        System.out.println("start");
+        bid = bidService.findBidByBidId(bid.getBidId());
+        System.out.println(bid.getWeightForSale() + " " + bid.getEstimatedSalePrice());
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("bid", bid);
             modelAndView.addObject("purchaseData", purchaseData);
         } else {
-           purchaseDataService.savePurchaseData(purchaseData);
-           bidService.savePurchaseBid(bid);
+            try {
+            purchaseDataService.savePurchaseData(purchaseData);}
+            catch (Exception e){
+                System.out.println("error "+e);
+                return modelAndView;
+            }
+            try {
+                bidService.savePurchaseBid(bid);}
+            catch (Exception e){
+                System.out.println("error "+e);
+                return modelAndView;
+            }
+            modelAndView.addObject("successMessage", "Заявку успішно закрито");
         }
+
         return modelAndView;
     }
 }
