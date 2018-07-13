@@ -1,20 +1,14 @@
 package com.siaivo.bid.controller;
 
 import com.siaivo.bid.model.Bid;
-import com.siaivo.bid.model.PurchaseData;
 import com.siaivo.bid.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
-
 
 
 @Controller
@@ -29,10 +23,8 @@ public class BidController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private PurchaseDataService purchaseDataService;
-    private Bid bid;
 
-    @RequestMapping(value = "/sales/bid", method = RequestMethod.GET)
+      @RequestMapping(value = "/sales/bid", method = RequestMethod.GET)
     public ModelAndView createNewBid() {
         ModelAndView modelAndView = new ModelAndView();
         Bid bid = new Bid();
@@ -128,36 +120,25 @@ public class BidController {
         ModelAndView modelAndView = new ModelAndView();
         Bid bid =  bidService.findBidByBidId(bidId);
         modelAndView.addObject("bid", bid);
-        PurchaseData purchaseData = new PurchaseData();
-        modelAndView.addObject("purchaseData", purchaseData);
         modelAndView.setViewName("purchase/closeBid");
         return modelAndView;
     }
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
-    public ModelAndView editOrder(@ModelAttribute("bid")Bid bid, @Valid PurchaseData purchaseData, BindingResult bindingResult) {
+    public ModelAndView editOrder(@ModelAttribute("bid")Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("start");
+        System.out.println("bidId "+bid.getBidId());
         bid = bidService.findBidByBidId(bid.getBidId());
-        System.out.println(bid.getWeightForSale() + " " + bid.getEstimatedSalePrice());
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("bid", bid);
-            modelAndView.addObject("purchaseData", purchaseData);
-        } else {
-            try {
-            purchaseDataService.savePurchaseData(purchaseData);}
-            catch (Exception e){
-                System.out.println("error "+e);
-                return modelAndView;
-            }
-            try {
-                bidService.savePurchaseBid(bid);}
-            catch (Exception e){
-                System.out.println("error "+e);
-                return modelAndView;
-            }
-            modelAndView.addObject("successMessage", "Заявку успішно закрито");
-        }
+        int price = bid.getPurchasePrice();
 
-        return modelAndView;
+        System.out.println("after set "+price);
+        try {
+                bidService.savePurchaseBid(bid);
+            System.out.println("ціна "+bid.getPurchasePrice());}
+            catch (Exception e){
+                System.out.println("error "+e);
+                return modelAndView;
+            }
+         modelAndView.addObject("successMessage", "Заявку успішно закрито");
+         return modelAndView;
     }
 }

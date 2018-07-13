@@ -48,7 +48,6 @@ public class BidServiceImpl implements BidService {
     }
     @Override
     public void saveSalesBid(Bid bid) {
-        int finalWeight = bid.getWeightForSale();
         bid.setCreationDate(new Date());
         bid.setStatus("В закупках");
 //        bid.setApproveDate(new Date());

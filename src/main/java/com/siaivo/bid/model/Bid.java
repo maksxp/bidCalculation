@@ -51,8 +51,8 @@ public class Bid {
     private String incoterms;
     @Column(name = "incoterms")
     private String buyer;
-    @Column(name = "pallets")
-    private Boolean pallets;
+    @Column(name = "salePallets")
+    private Boolean salePallets;
     @Column(name = "comment")
     private String comment;
     @Column(name = "destinationPlace")
@@ -61,6 +61,24 @@ public class Bid {
     @Column(name = "destinationCountry")
     @NotEmpty(message = "*Будь ласка вкажіть країну поставки")
     private String destinationCountry;
+    @Column(name = "purchaseAdmixture")
+    private Float purchaseAdmixture;
+    @Column(name = "purchaseHumidity")
+    private Float purchaseHumidity;
+    @Column(name = "purchasePrice")
+    private Integer purchasePrice;
+    @Column(name = "purchasePackingType")
+    private String purchasePackingType;
+    @Column(name = "purchaseCurrency")
+    private String purchaseCurrency;
+    @Column(name = "purchasePallets")
+    private Boolean purchasePallets;
+    @Column(name = "purchasePlace")
+    private String purchasePlace;
+    @Column(name = "purchaseCountry")
+    private String purchaseCountry;
+    @Column(name = "purchaseWeight")
+    private Integer purchaseWeight;
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
@@ -196,12 +214,12 @@ public class Bid {
         this.buyer = buyer;
     }
 
-    public Boolean getPallets() {
-        return pallets;
+    public Boolean getSalePallets() {
+        return salePallets;
     }
 
-    public void setPallets(Boolean pallets) {
-        this.pallets = pallets;
+    public void setSalePallets(Boolean salePallets) {
+        this.salePallets = salePallets;
     }
 
     public String getComment() {
@@ -226,6 +244,78 @@ public class Bid {
 
     public void setDestinationCountry(String destinationCountry) {
         this.destinationCountry = destinationCountry;
+    }
+
+    public Float getPurchaseAdmixture() {
+        return purchaseAdmixture;
+    }
+
+    public void setPurchaseAdmixture(Float purchaseAdmixture) {
+        this.purchaseAdmixture = purchaseAdmixture;
+    }
+
+    public Float getPurchaseHumidity() {
+        return purchaseHumidity;
+    }
+
+    public void setPurchaseHumidity(Float purchaseHumidity) {
+        this.purchaseHumidity = purchaseHumidity;
+    }
+
+    public Integer getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public void setPurchasePrice(Integer purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
+
+    public String getPurchasePackingType() {
+        return purchasePackingType;
+    }
+
+    public void setPurchasePackingType(String purchasePackingType) {
+        this.purchasePackingType = purchasePackingType;
+    }
+
+    public String getPurchaseCurrency() {
+        return purchaseCurrency;
+    }
+
+    public void setPurchaseCurrency(String purchaseCurrency) {
+        this.purchaseCurrency = purchaseCurrency;
+    }
+
+    public Boolean getPurchasePallets() {
+        return purchasePallets;
+    }
+
+    public void setPurchasePallets(Boolean purchasePallets) {
+        this.purchasePallets = purchasePallets;
+    }
+
+    public String getPurchasePlace() {
+        return purchasePlace;
+    }
+
+    public void setPurchasePlace(String purchasePlace) {
+        this.purchasePlace = purchasePlace;
+    }
+
+    public String getPurchaseCountry() {
+        return purchaseCountry;
+    }
+
+    public void setPurchaseCountry(String purchaseCountry) {
+        this.purchaseCountry = purchaseCountry;
+    }
+
+    public Integer getPurchaseWeight() {
+        return purchaseWeight;
+    }
+
+    public void setPurchaseWeight(Integer purchaseWeight) {
+        this.purchaseWeight = purchaseWeight;
     }
 
     public User getUser() {
