@@ -5,10 +5,12 @@ import com.siaivo.bid.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -25,7 +27,7 @@ public class BidController {
     @Autowired
 
       @RequestMapping(value = "/sales/bid", method = RequestMethod.GET)
-    public ModelAndView createNewBid() {
+    public ModelAndView createNewBidGet() {
         ModelAndView modelAndView = new ModelAndView();
         Bid bid = new Bid();
         modelAndView.addObject("bid", bid);
@@ -35,7 +37,7 @@ public class BidController {
     }
 
     @RequestMapping(value = "/sales/bid", method = RequestMethod.POST)
-    public ModelAndView createNewBid(@Valid Bid bid, BindingResult bindingResult) {
+    public ModelAndView createNewBidPost(@Valid Bid bid, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 //        List<FieldError> errors = bindingResult.getFieldErrors();
 //        for (FieldError error : errors ) {
@@ -116,24 +118,25 @@ public class BidController {
 //    }
 
     @RequestMapping(value = "/purchase/closeBid/{bidId}", method = RequestMethod.GET)
-    public ModelAndView editOrder(@PathVariable(value = "bidId") int bidId){
+    public ModelAndView closeBidPurchaseGet(@PathVariable(value = "bidId") int bidId){
         ModelAndView modelAndView = new ModelAndView();
         Bid bid =  bidService.findBidByBidId(bidId);
         modelAndView.addObject("bid", bid);
-        modelAndView.setViewName("purchase/closeBid");
+        modelAndView.setViewName("/purchase/closeBid");
         return modelAndView;
     }
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
-    public ModelAndView editOrder(@ModelAttribute("bid")Bid bid) {
+        public ModelAndView closeBidPurchasePost(@ModelAttribute Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("bidId "+bid.getBidId());
         bid = bidService.findBidByBidId(bid.getBidId());
-        int price = bid.getPurchasePrice();
+        System.out.println("ціна закупівлі "+bid.getPurchasePrice());
 
-        System.out.println("after set "+price);
+
+
         try {
                 bidService.savePurchaseBid(bid);
-            System.out.println("ціна "+bid.getPurchasePrice());}
+            }
             catch (Exception e){
                 System.out.println("error "+e);
                 return modelAndView;
