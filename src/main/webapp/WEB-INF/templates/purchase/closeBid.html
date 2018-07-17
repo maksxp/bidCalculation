@@ -40,13 +40,12 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<form autocomplete="off" action="#" th:action="@{/purchase/closeBid}"
-				  th:object="${bid}" method="post" class="form-horizontal" role="form">
+				  th:object="${bid}" class="form-horizontal" role="form"  method="post">
 				<h2>Форма закриття заявки</h2>
 				<input type="hidden" th:field="*{bidId}"/>
 				<div class="form-group">
 					<div class="col-sm-9">
-						<input type="text" th:field="*{purchasePrice}"
-							   placeholder="Будь ласка, введіть ціну закупівлі" class="form-control" />
+						<input type="text" th:field="*{purchasePrice}" placeholder="Будь ласка, введіть ціну закупівлі" class="form-control" />
 					</div>
 				</div>
 
@@ -55,7 +54,7 @@
 						<button type="submit" class="btn btn-primary btn-block">Закрити заявку</button>
 					</div>
 				</div>
-				<!--<span th:utext="${successMessage}"></span>-->
+				<span th:utext="${successMessage}"></span>
 			</form>
 		</div>
 	</div>

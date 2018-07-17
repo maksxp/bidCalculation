@@ -126,13 +126,11 @@ public class BidController {
         return modelAndView;
     }
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
-        public ModelAndView closeBidPurchasePost(@ModelAttribute Bid bid) {
+        public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("bidId "+bid.getBidId());
-        bid = bidService.findBidByBidId(bid.getBidId());
+       // bid = bidService.findBidByBidId(bid.getBidId());
         System.out.println("ціна закупівлі "+bid.getPurchasePrice());
-
-
 
         try {
                 bidService.savePurchaseBid(bid);
