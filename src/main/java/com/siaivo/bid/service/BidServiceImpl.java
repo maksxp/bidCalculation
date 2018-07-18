@@ -40,11 +40,15 @@ public class BidServiceImpl implements BidService {
     public List <Bid> findBidsByDate(Date dateStart, Date dateEnd){
         return bidRepository.findByCreationDateBetween(dateStart,dateEnd);
     }
-
     @Override
-    public void savePurchaseBid(Bid bid) {
-            bid.setStatus("У логіста");
-            bidRepository.save(bid);
+    public void saveLogistBid(Bid bid) {
+        bid.setStatus("У фінансиста");
+        bidRepository.save(bid);
+    }
+    @Override
+     public void savePurchaseBid(Bid bid) {
+        bid.setStatus("У логіста");
+        bidRepository.save(bid);
     }
     @Override
     public void saveSalesBid(Bid bid) {
@@ -66,6 +70,9 @@ public class BidServiceImpl implements BidService {
     }
     @Override
     public List<Bid> purchaseBidsList(){ return bidRepository.findByStatusLike("В закупках");
+    }
+    @Override
+    public List<Bid> logistBidsList(){ return bidRepository.findByStatusLike("У логіста");
     }
     @Override
     public List<Bid> approvedBidsList(){ return bidRepository.findByStatusLike("Погоджений");

@@ -5,13 +5,10 @@ import com.siaivo.bid.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
-
 
 @Controller
 public class BidController {
@@ -64,7 +61,7 @@ public class BidController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"sales/inWorkBidsList", "purchase/inWorkBidsList"}, method = RequestMethod.GET)
+    @RequestMapping(value = "sales/inWorkBidsList", method = RequestMethod.GET)
     public ModelAndView InWorkBidsList() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("inWorkBidsList", bidService.inWorkBidsList());
@@ -85,6 +82,13 @@ public class BidController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("purchaseBidsList", bidService.purchaseBidsList());
         modelAndView.setViewName("purchase/purchaseBidsList");
+        return modelAndView;
+    }
+    @RequestMapping(value = "logist/logistBidsList", method = RequestMethod.GET)
+    public ModelAndView logistBids() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("logistBidsList", bidService.logistBidsList());
+        modelAndView.setViewName("logist/logistBidsList");
         return modelAndView;
     }
     @RequestMapping(value = "/sales/confirmBid/{bidId}", method = RequestMethod.GET)
@@ -128,18 +132,62 @@ public class BidController {
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
         public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("bidId "+bid.getBidId());
-       // bid = bidService.findBidByBidId(bid.getBidId());
-        System.out.println("ціна закупівлі "+bid.getPurchasePrice());
+          System.out.println("bidId "+bid.getBidId());
+          int purchasePrice = bid.getPurchasePrice();
+        String purchaseCountry = bid.getPurchaseCountry();
+        String purchasePlace = bid.getPurchasePlace();
+        int purchaseWeight = bid.getPurchaseWeight();
+        String purchaseCurrency = bid.getPurchaseCurrency();
+        Float purchaseAdmixture = bid.getPurchaseAdmixture();
+        Float purchaseHumidity = bid.getPurchaseHumidity();
+        String purchasePackingType = bid.getPurchasePackingType();
+        String purchasePallets = bid.getPurchasePallets();
+        bid = bidService.findBidByBidId(bid.getBidId());
 
         try {
-                bidService.savePurchaseBid(bid);
+            bid.setPurchasePrice (purchasePrice);
+            bid.setPurchaseCountry (purchaseCountry);
+            bid.setPurchasePlace (purchasePlace);
+            bid.setPurchaseWeight (purchaseWeight);
+            bid.setPurchaseCurrency (purchaseCurrency);
+            bid.setPurchaseAdmixture (purchaseAdmixture);
+            bid.setPurchaseHumidity (purchaseHumidity);
+            bid.setPurchasePackingType (purchasePackingType);
+            bid.setPurchasePallets (purchasePallets);
+              bidService.savePurchaseBid(bid);
             }
             catch (Exception e){
-                System.out.println("error "+e);
+                System.out.println("error alarm "+e);
                 return modelAndView;
             }
          modelAndView.addObject("successMessage", "Заявку успішно закрито");
          return modelAndView;
+    }
+    @RequestMapping(value = "/logist/closeBid/{bidId}", method = RequestMethod.GET)
+    public ModelAndView closeBidLogistGet(@PathVariable(value = "bidId") int bidId){
+        ModelAndView modelAndView = new ModelAndView();
+        Bid bid =  bidService.findBidByBidId(bidId);
+        modelAndView.addObject("bid", bid);
+        modelAndView.setViewName("/logist/closeBid");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/logist/closeBid", method = RequestMethod.POST)
+    public ModelAndView closeBidLogistPost(@ModelAttribute ("bid") Bid bid) {
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println("bidId "+bid.getBidId());
+        int purchaseDeliveryCosts = bid.getPurchaseDeliveryCosts();
+      //  int saleDeliveryCosts = bid.getSaleDeliveryCosts();
+
+        try {
+            bid.setPurchaseDeliveryCosts(purchaseDeliveryCosts);
+       //     bid.setSaleDeliveryCosts(saleDeliveryCosts);
+            bidService.saveLogistBid(bid);
+        }
+        catch (Exception e){
+            System.out.println("error alarm "+e);
+            return modelAndView;
+        }
+        modelAndView.addObject("successMessage", "Заявку успішно закрито");
+        return modelAndView;
     }
 }

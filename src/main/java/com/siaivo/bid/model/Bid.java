@@ -52,7 +52,7 @@ public class Bid {
     @Column(name = "incoterms")
     private String buyer;
     @Column(name = "salePallets")
-    private Boolean salePallets;
+    private String salePallets;
     @Column(name = "comment")
     private String comment;
     @Column(name = "destinationPlace")
@@ -72,13 +72,17 @@ public class Bid {
     @Column(name = "purchaseCurrency")
     private String purchaseCurrency;
     @Column(name = "purchasePallets")
-    private Boolean purchasePallets;
+    private String purchasePallets;
     @Column(name = "purchasePlace")
     private String purchasePlace;
     @Column(name = "purchaseCountry")
     private String purchaseCountry;
     @Column(name = "purchaseWeight")
     private Integer purchaseWeight;
+    @Column(name = "purchaseDeliveryCosts")
+    private Integer purchaseDeliveryCosts;
+    @Column(name = "saleDeliveryCosts")
+    private Integer saleDeliveryCosts;
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
@@ -214,11 +218,11 @@ public class Bid {
         this.buyer = buyer;
     }
 
-    public Boolean getSalePallets() {
+    public String getSalePallets() {
         return salePallets;
     }
 
-    public void setSalePallets(Boolean salePallets) {
+    public void setSalePallets(String salePallets) {
         this.salePallets = salePallets;
     }
 
@@ -244,6 +248,22 @@ public class Bid {
 
     public void setDestinationCountry(String destinationCountry) {
         this.destinationCountry = destinationCountry;
+    }
+
+    public Integer getPurchaseDeliveryCosts() {
+        return purchaseDeliveryCosts;
+    }
+
+    public void setPurchaseDeliveryCosts(Integer purchaseDeliveryCosts) {
+        this.purchaseDeliveryCosts = purchaseDeliveryCosts;
+    }
+
+    public Integer getSaleDeliveryCosts() {
+        return saleDeliveryCosts;
+    }
+
+    public void setSaleDeliveryCosts(Integer saleDeliveryCosts) {
+        this.saleDeliveryCosts = saleDeliveryCosts;
     }
 
     public Float getPurchaseAdmixture() {
@@ -286,11 +306,11 @@ public class Bid {
         this.purchaseCurrency = purchaseCurrency;
     }
 
-    public Boolean getPurchasePallets() {
+    public String getPurchasePallets() {
         return purchasePallets;
     }
 
-    public void setPurchasePallets(Boolean purchasePallets) {
+    public void setPurchasePallets(String purchasePallets) {
         this.purchasePallets = purchasePallets;
     }
 

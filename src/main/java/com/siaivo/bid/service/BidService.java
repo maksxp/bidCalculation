@@ -13,11 +13,12 @@ public interface BidService {
     List<Bid> findBidsByDate(Date dateStart, Date dateEnd);
     void savePurchaseBid(Bid bid);
     void saveSalesBid(Bid bid);
-//    void closeOrder(Bid order);
+    void saveLogistBid(Bid bid);
     void confirmBid(Bid bid);
     void editBid(Bid bid, int weight);
     List<Bid> allBidsList();
     List<Bid> inWorkBidsList();
     List<Bid> purchaseBidsList();
+    List<Bid> logistBidsList();
     List<Bid> approvedBidsList();
 }

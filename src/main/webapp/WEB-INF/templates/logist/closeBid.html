@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="icon" type="image/x-icon" href="/favicon.png" th:href="@{/images/favicon.png}" />
+	<title>Закриття заявки</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!--<script src="jquery.chained.min.js"></script>-->
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row row-flex">
+		<div  class=" col-md-4 col-xs-12 col-sm-4 col-lg-4">
+			<form >
+				<button class="btn btn-md btn-link btn-block" type="Submit">ви увійшли як  <span th:text="${#httpServletRequest.remoteUser}"> </span></button>
+			</form>
+		</div>
+		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
+			<form th:action="@{/logist/allBidsList}" method="get">
+				<button class="btn btn-md btn-success btn-block" type="Submit">Всі заявки</button>
+			</form>
+		</div>
+		<div class=" col-md-4 col-xs-12 col-sm-4 col-lg-4" >
+			<form th:action="@{/logist/logistBidsList}" method="get">
+				<button class="btn btn-md btn-info btn-block" type="Submit">Заявки в роботі</button>
+			</form>
+		</div>
+		<div class=" col-md-2 col-xs-12 col-sm-2 col-lg-2" >
+			<form th:action="@{/logout}" method="get">
+				<button class="btn btn-md btn-danger btn-block" name="logout" type="Submit">Вийти</button>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<form autocomplete="off" action="#" th:action="@{/logist/closeBid}"
+				  th:object="${bid}" class="form-horizontal" role="form"  method="post">
+
+				<input type="hidden" th:field="*{bidId}"/>
+				<h3>Дані по закупівлі</h3>
+				<div class="order">
+				<table class="order" width="100%" cellspacing="0" border="0">
+					<tr>
+						<th><h5>Заявка №</h5></th>
+						<th><h5><label th:text="*{bidId}"></label></h5></th>
+					</tr>
+					<tr>
+						<th><h5>Продукт</h5></th>
+						<th><h5><label th:text="*{product}"></label></h5></th>
+					</tr>
+					<tr>
+						<th><h5>Вага</h5></th>
+						<th><h5><label th:text="*{purchaseWeight}"></label></h5></th>
+					</tr>
+					<tr>
+						<th><h5>Місто закупівлі</h5></th>
+						<th><h5><label th:text="*{purchasePlace}"></label></h5></th>
+					</tr>
+					<tr>
+						<th><h5>Країна закупівлі</h5></th>
+						<th><h5><label th:text="*{purchaseCountry}"></label></h5></th>
+					</tr>
+					<tr>
+						<th><h5>Пакування</h5></th>
+						<th><h5><label th:text="*{purchasePackingType}"></label></h5></th>
+					</tr>
+					<tr>
+						<th><h5>Палети</h5></th>
+						<th><h5><label th:text="*{purchasePallets}"></label></h5></th>
+					</tr>
+				</table>
+		</div>
+
+
+				<div class="form-group">
+					<div class="col-sm-9">
+						<input type="text" th:field="*{purchaseDeliveryCosts}" placeholder="Будь ласка, вкажіть вартість доставки на склад" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9">
+						<button type="submit" class="btn btn-primary btn-block">Закрити заявку</button>
+					</div>
+				</div>
+				<span th:utext="${successMessage}"></span>
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
