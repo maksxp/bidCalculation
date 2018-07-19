@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -43,14 +44,15 @@ public class BidController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("listAllProducts", productService.listAllProducts());
             modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
+            return modelAndView;
         } else {
             bidService.saveSalesBid(bid);
             modelAndView.addObject("successMessage", "Заявку успішно створено");
-            modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
-            modelAndView.addObject("listAllProducts", productService.listAllProducts());
-            modelAndView.addObject("bid", new Bid());
+          //  modelAndView.addObject("listAllBuyers", buyerService.listAllBuyers());
+          //  modelAndView.addObject("listAllProducts", productService.listAllProducts());
+        //    modelAndView.addObject("bid", new Bid());
         }
-        return modelAndView;
+        return new ModelAndView("redirect:/sales/inWorkBidsList");
     }
 
     @RequestMapping(value = {"sales/allBidsList", "purchase/allBidsList"}, method = RequestMethod.GET)
@@ -130,7 +132,7 @@ public class BidController {
         return modelAndView;
     }
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
-        public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid) {
+        public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid, final RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
           System.out.println("bidId "+bid.getBidId());
           int purchasePrice = bid.getPurchasePrice();
@@ -160,8 +162,10 @@ public class BidController {
                 System.out.println("error alarm "+e);
                 return modelAndView;
             }
-         modelAndView.addObject("successMessage", "Заявку успішно закрито");
-         return modelAndView;
+        // modelAndView.addObject("successMessage", "Заявку успішно закрито");
+        redirectAttributes.addFlashAttribute ("successMessage", "Заявку успішно закрито");
+        return new ModelAndView("redirect:/purchase/purchaseBidsList");
+         //return modelAndView;
     }
     @RequestMapping(value = "/logist/closeBid/{bidId}", method = RequestMethod.GET)
     public ModelAndView closeBidLogistGet(@PathVariable(value = "bidId") int bidId){
