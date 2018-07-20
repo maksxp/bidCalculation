@@ -132,10 +132,12 @@ public class BidController {
         return modelAndView;
     }
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
-        public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid, final RedirectAttributes redirectAttributes) {
+        public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
-          System.out.println("bidId "+bid.getBidId());
-          int purchasePrice = bid.getPurchasePrice();
+        System.out.println("bidId "+bid.getBidId());
+
+        try {
+        int purchasePrice = bid.getPurchasePrice();
         String purchaseCountry = bid.getPurchaseCountry();
         String purchasePlace = bid.getPurchasePlace();
         int purchaseWeight = bid.getPurchaseWeight();
@@ -146,7 +148,7 @@ public class BidController {
         String purchasePallets = bid.getPurchasePallets();
         bid = bidService.findBidByBidId(bid.getBidId());
 
-        try {
+
             bid.setPurchasePrice (purchasePrice);
             bid.setPurchaseCountry (purchaseCountry);
             bid.setPurchasePlace (purchasePlace);
@@ -156,16 +158,16 @@ public class BidController {
             bid.setPurchaseHumidity (purchaseHumidity);
             bid.setPurchasePackingType (purchasePackingType);
             bid.setPurchasePallets (purchasePallets);
-              bidService.savePurchaseBid(bid);
+            bidService.savePurchaseBid(bid);
             }
             catch (Exception e){
                 System.out.println("error alarm "+e);
+                modelAndView.addObject("bid", bid);
+                modelAndView.addObject("errorMessage", "Будь ласка, заповніть всі поля");
                 return modelAndView;
             }
-        // modelAndView.addObject("successMessage", "Заявку успішно закрито");
-        redirectAttributes.addFlashAttribute ("successMessage", "Заявку успішно закрито");
-        return new ModelAndView("redirect:/purchase/purchaseBidsList");
-         //return modelAndView;
+         return new ModelAndView("redirect:/purchase/purchaseBidsList");
+
     }
     @RequestMapping(value = "/logist/closeBid/{bidId}", method = RequestMethod.GET)
     public ModelAndView closeBidLogistGet(@PathVariable(value = "bidId") int bidId){
