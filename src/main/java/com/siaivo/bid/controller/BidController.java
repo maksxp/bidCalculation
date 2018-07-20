@@ -132,7 +132,7 @@ public class BidController {
         return modelAndView;
     }
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
-        public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid, final RedirectAttributes redirectAttributes) {
+        public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
           System.out.println("bidId "+bid.getBidId());
           int purchasePrice = bid.getPurchasePrice();
@@ -163,7 +163,7 @@ public class BidController {
                 return modelAndView;
             }
         // modelAndView.addObject("successMessage", "Заявку успішно закрито");
-        redirectAttributes.addFlashAttribute ("successMessage", "Заявку успішно закрито");
+       // redirectAttributes.addFlashAttribute ("successMessage", "Заявку успішно закрито");
         return new ModelAndView("redirect:/purchase/purchaseBidsList");
          //return modelAndView;
     }
