@@ -30,7 +30,7 @@ public class BidServiceImpl implements BidService {
         }
         return bidsByUser;}
    @Override
-    public Bid findBidByBidId(int bidId){ return bidRepository.findByBidId(bidId);}
+    public Bid findBidById(int id){ return bidRepository.findById(id);}
     @Override
     public List <Bid> findBidsByStatus(String bidStatus)
     {
@@ -45,11 +45,7 @@ public class BidServiceImpl implements BidService {
         bid.setStatus("У фінансиста");
         bidRepository.save(bid);
     }
-    @Override
-     public void savePurchaseBid(Bid bid) {
-        bid.setStatus("У логіста");
-        bidRepository.save(bid);
-    }
+
     @Override
     public void saveSalesBid(Bid bid) {
         bid.setCreationDate(new Date());

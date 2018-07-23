@@ -14,9 +14,9 @@ public class Bid {
     @Column(name = "status")
     private String status;
     @Id
-    @Column(name = "BidId")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int bidId;
+    private int id;
     @Column(name = "creationDate")
     private Date creationDate;
     @Column(name = "approveDate")
@@ -86,8 +86,19 @@ public class Bid {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id", nullable = false)
+    private PurchaseData purchaseData;
 
     public Bid() {
+    }
+
+    public PurchaseData getPurchaseData() {
+        return purchaseData;
+    }
+
+    public void setPurchaseData(PurchaseData purchaseData) {
+        this.purchaseData = purchaseData;
     }
 
     public String getStatus() {
@@ -98,12 +109,12 @@ public class Bid {
         this.status = status;
     }
 
-    public int getBidId() {
-        return bidId;
+    public int getId() {
+        return id;
     }
 
-    public void setBidId(int bidId) {
-        this.bidId = bidId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getCreationDate() {
@@ -351,13 +362,13 @@ public class Bid {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bid order = (Bid) o;
-        return bidId == order.bidId;
+        return id == order.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(bidId);
+        return Objects.hash(id);
     }
 }
 

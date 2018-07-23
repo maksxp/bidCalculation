@@ -40,70 +40,73 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<form autocomplete="off" action="#" th:action="@{/purchase/closeBid}"
-				  th:object="${bid}" class="form-horizontal" role="form"  method="post">
 
-				<input type="hidden" th:field="*{bidId}"/>
-				<h3> Необхідний товар <b><span th:text="${bid.product}"></span></b> обсягом <b><span th:text="${bid.weightForSale}"></span></b> тон </h3>
+				  class="form-horizontal" role="form"  method="post">
+				<!--th:object="${bide}"-->
+
+				<input type="hidden" th:field="*{id}"/>
+				<!--<h3> Необхідний товар <b><span th:text="${bid.product}"></span></b> обсягом <b><span th:text="${bid.weightForSale}"></span></b> тон </h3>-->
+				<h3> Необхідний товар <b><span th:text="${product}"></span></b> обсягом <b><span th:text="${weight}"></span></b> тон </h3>
 				<h3>Форма закриття заявки</h3>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<label>Країна закупівлі</label>
-						<select th:field="*{purchaseCountry}">
-							<option th:value="Україна">Україна</option>
-							<option th:value="Росія">Росія</option>
-							<option th:value="Казахстан">Казахстан</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<input type="text" th:field="*{purchasePlace}" placeholder="Будь ласка, вкажіть місце закупівлі" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<input type="text" th:field="*{purchaseWeight}" placeholder="Будь ласка, вкажіть вагу" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<input type="text" th:field="*{purchasePrice}" placeholder="Будь ласка, вкажіть ціну закупівлі" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<label>Валюта контракту</label>
-						<select th:field="*{purchaseCurrency}">
-							<option th:value="EUR">EUR</option>
-							<option th:value="USD">USD</option>
-							<option th:value="UAH">UAH</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<input type="text" th:field="*{purchaseAdmixture}" placeholder="Будь ласка, вкажіть смітну" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<input type="text" th:field="*{purchaseHumidity}" placeholder="Будь ласка, вкажіть вологість" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-9">
-						<label>Пакування</label>
-						<select th:field="*{purchasePackingType}">
-							<option th:value="big-bag">big-bag</option>
-							<option th:value="polypropylene25KgBags">25 кг пп мішки</option>
-							<option th:value="paper25KgBags">25 кг бумажні мішки</option>
-						</select>
-						<select th:field="*{purchasePallets}">
-							<option th:value="Так">на піддонах</option>
-							<option th:value="Ні">без піддонів</option>
-						</select>
-					</div>
-				</div>
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<label>Країна закупівлі</label>-->
+						<!--<select th:field="*{purchaseCountry}">-->
+							<!--<option th:value="Україна">Україна</option>-->
+							<!--<option th:value="Росія">Росія</option>-->
+							<!--<option th:value="Казахстан">Казахстан</option>-->
+						<!--</select>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<input type="text" th:field="*{purchasePlace}" placeholder="Будь ласка, вкажіть місце закупівлі" class="form-control" />-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<input type="text" th:field="*{purchaseWeight}" placeholder="Будь ласка, вкажіть вагу" class="form-control" />-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<input type="text" th:field="*{purchasePrice}" placeholder="Будь ласка, вкажіть ціну закупівлі" class="form-control" />-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<label>Валюта контракту</label>-->
+						<!--<select th:field="*{purchaseCurrency}">-->
+							<!--<option th:value="EUR">EUR</option>-->
+							<!--<option th:value="USD">USD</option>-->
+							<!--<option th:value="UAH">UAH</option>-->
+						<!--</select>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<input type="text" th:field="*{purchaseAdmixture}" placeholder="Будь ласка, вкажіть смітну" class="form-control" />-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<input type="text" th:field="*{purchaseHumidity}" placeholder="Будь ласка, вкажіть вологість" class="form-control" />-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="form-group">-->
+					<!--<div class="col-sm-9">-->
+						<!--<label>Пакування</label>-->
+						<!--<select th:field="*{purchasePackingType}">-->
+							<!--<option th:value="big-bag">big-bag</option>-->
+							<!--<option th:value="polypropylene25KgBags">25 кг пп мішки</option>-->
+							<!--<option th:value="paper25KgBags">25 кг бумажні мішки</option>-->
+						<!--</select>-->
+						<!--<select th:field="*{purchasePallets}">-->
+							<!--<option th:value="Так">на піддонах</option>-->
+							<!--<option th:value="Ні">без піддонів</option>-->
+						<!--</select>-->
+					<!--</div>-->
+				<!--</div>-->
 				<div class="form-group">
 					<div class="col-sm-9">
 						<button type="submit" class="btn btn-primary btn-block">Закрити заявку</button>

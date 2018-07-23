@@ -35,7 +35,7 @@
 </div>
 <div class="container">
 	<h2>Список заявок</h2>
-	<table bidId="tables" class="display" cellspacing="0" width="100%">
+	<table id="tables" class="display" cellspacing="0" width="100%">
 		<thead>
 		<tr>
 			<th>Номер</th>
@@ -60,7 +60,7 @@
 		</tfoot>
 		<tbody>
 		<tr th:each="order : ${warehouseOrders}">
-			<td> <a th:href="${'/Warehouse/closeOrder/' + order.bidId}"> <span th:text="${order.bidId}"></span></a></td>
+			<td> <a th:href="${'/Warehouse/closeOrder/' + order.id}"> <span th:text="${order.id}"></span></a></td>
 			<td th:text="${order.user.name}">Name</td>
 			<td th:text="${order.company}">Company</td>
 			<td th:text="${order.creationDate}?(${#dates.format(order.creationDate, 'dd.MM.yyyy')}):(${order.creationDate})">Creation Date</td>

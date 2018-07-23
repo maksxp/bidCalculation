@@ -74,7 +74,7 @@
 		</tfoot>
 		<tbody>
 		<tr th:each="bid : ${allBidsList}">
-			<td th:text="${bid.bidId}">Id</td>
+			<td th:text="${bid.id}">Id</td>
 			<td th:text="${bid.buyer}">Buyer</td>
 			<td th:text="${bid.status}">Status</td>
 			<td th:text="${bid.creationDate}?(${#dates.format(bid.creationDate, 'dd.MM.yyyy')}):(${bid.creationDate})">Creation Date</td>

@@ -42,13 +42,13 @@
 			<form autocomplete="off" action="#" th:action="@{/logist/closeBid}"
 				  th:object="${bid}" class="form-horizontal" role="form"  method="post">
 
-				<input type="hidden" th:field="*{bidId}"/>
+				<input type="hidden" th:field="*{id}"/>
 				<h3>Дані по закупівлі</h3>
 				<div class="order">
 				<table class="order" width="100%" cellspacing="0" border="0">
 					<tr>
 						<th><h5>Заявка №</h5></th>
-						<th><h5><label th:text="*{bidId}"></label></h5></th>
+						<th><h5><label th:text="*{id}"></label></h5></th>
 					</tr>
 					<tr>
 						<th><h5>Продукт</h5></th>

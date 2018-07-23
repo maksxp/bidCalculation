@@ -64,7 +64,7 @@
 		</tfoot>
 		<tbody>
 		<tr th:each="bid : ${logistBidsList}">
-			<td> <a th:href="${'/logist/closeBid/' + bid.bidId}"> <span th:text="${bid.bidId}"></span></a></td>
+			<td> <a th:href="${'/logist/closeBid/' + bid.id}"> <span th:text="${bid.id}"></span></a></td>
 			<td th:text="${bid.buyer}">Buyer</td>
 			<td th:text="${bid.status}">Status</td>
 			<td th:text="${bid.creationDate}?(${#dates.format(bid.creationDate, 'dd.MM.yyyy')}):(${bid.creationDate})">Creation Date</td>

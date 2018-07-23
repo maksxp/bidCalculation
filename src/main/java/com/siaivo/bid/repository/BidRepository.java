@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository("bidRepository")
 public interface BidRepository extends JpaRepository<Bid, Long> {
-    Bid findByBidId(int id);
+    Bid findById(int id);
     List<Bid> findByProduct(String product);
     List<Bid> findByStatusLike(String orderStatus);
     List<Bid> findByCreationDateBetween(Date dateStart, Date dateEnd);

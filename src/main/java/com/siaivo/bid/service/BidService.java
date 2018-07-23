@@ -8,10 +8,9 @@ import java.util.List;
 
 public interface BidService {
     List<Bid> findBidsByUser(User user);
-    Bid findBidByBidId(int bidId);
-    List<Bid> findBidsByStatus(String orderStatus);
+    Bid findBidById(int id);
+    List<Bid> findBidsByStatus(String bidStatus);
     List<Bid> findBidsByDate(Date dateStart, Date dateEnd);
-    void savePurchaseBid(Bid bid);
     void saveSalesBid(Bid bid);
     void saveLogistBid(Bid bid);
     void confirmBid(Bid bid);

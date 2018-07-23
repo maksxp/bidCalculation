@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -93,9 +92,9 @@ public class BidController {
         modelAndView.setViewName("logist/logistBidsList");
         return modelAndView;
     }
-    @RequestMapping(value = "/sales/confirmBid/{bidId}", method = RequestMethod.GET)
-    public ModelAndView confirmBid(@PathVariable(value = "bidId") int bidId) {
-        Bid bid = bidService.findBidByBidId(bidId);
+    @RequestMapping(value = "/sales/confirmBid/{id}", method = RequestMethod.GET)
+    public ModelAndView confirmBid(@PathVariable(value = "id") int id) {
+        Bid bid = bidService.findBidById(id);
         bidService.confirmBid(bid);
         return new ModelAndView("redirect:/viasat/assignedBidsList");
     }
@@ -123,18 +122,20 @@ public class BidController {
 //        return modelAndView;
 //    }
 
-    @RequestMapping(value = "/purchase/closeBid/{bidId}", method = RequestMethod.GET)
-    public ModelAndView closeBidPurchaseGet(@PathVariable(value = "bidId") int bidId){
+    @RequestMapping(value = "/purchase/closeBid/{id}", method = RequestMethod.GET)
+    public ModelAndView closeBidPurchaseGet(@PathVariable(value = "id") int id){
         ModelAndView modelAndView = new ModelAndView();
-        Bid bid =  bidService.findBidByBidId(bidId);
-        modelAndView.addObject("bid", bid);
+        Bid bid =  bidService.findBidById(id);
+       // modelAndView.addObject("bid", bid);
+        modelAndView.addObject("product", bid.getProduct());
+        modelAndView.addObject("weight", bid.getWeightForSale());
         modelAndView.setViewName("/purchase/closeBid");
         return modelAndView;
     }
     @RequestMapping(value = "/purchase/closeBid", method = RequestMethod.POST)
         public ModelAndView closeBidPurchasePost(@ModelAttribute ("bid") Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("bidId "+bid.getBidId());
+        System.out.println("id "+bid.getId());
 
         try {
         int purchasePrice = bid.getPurchasePrice();
@@ -146,7 +147,7 @@ public class BidController {
         Float purchaseHumidity = bid.getPurchaseHumidity();
         String purchasePackingType = bid.getPurchasePackingType();
         String purchasePallets = bid.getPurchasePallets();
-        bid = bidService.findBidByBidId(bid.getBidId());
+        bid = bidService.findBidById(bid.getId());
 
 
             bid.setPurchasePrice (purchasePrice);
@@ -158,7 +159,7 @@ public class BidController {
             bid.setPurchaseHumidity (purchaseHumidity);
             bid.setPurchasePackingType (purchasePackingType);
             bid.setPurchasePallets (purchasePallets);
-            bidService.savePurchaseBid(bid);
+
             }
             catch (Exception e){
                 System.out.println("error alarm "+e);
@@ -169,10 +170,10 @@ public class BidController {
          return new ModelAndView("redirect:/purchase/purchaseBidsList");
 
     }
-    @RequestMapping(value = "/logist/closeBid/{bidId}", method = RequestMethod.GET)
-    public ModelAndView closeBidLogistGet(@PathVariable(value = "bidId") int bidId){
+    @RequestMapping(value = "/logist/closeBid/{id}", method = RequestMethod.GET)
+    public ModelAndView closeBidLogistGet(@PathVariable(value = "id") int id){
         ModelAndView modelAndView = new ModelAndView();
-        Bid bid =  bidService.findBidByBidId(bidId);
+        Bid bid =  bidService.findBidById(id);
         modelAndView.addObject("bid", bid);
         modelAndView.setViewName("/logist/closeBid");
         return modelAndView;
@@ -180,7 +181,7 @@ public class BidController {
     @RequestMapping(value = "/logist/closeBid", method = RequestMethod.POST)
     public ModelAndView closeBidLogistPost(@ModelAttribute ("bid") Bid bid) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("bidId "+bid.getBidId());
+        System.out.println("bidId "+bid.getId());
         int purchaseDeliveryCosts = bid.getPurchaseDeliveryCosts();
       //  int saleDeliveryCosts = bid.getSaleDeliveryCosts();
 

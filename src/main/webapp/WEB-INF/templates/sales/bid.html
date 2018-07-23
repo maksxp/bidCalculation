@@ -129,7 +129,7 @@
 				<div class="form-group">
 					<div class="col-sm-9">
 						<label>Покупець</label>
-						<select bidId="buyer" name="buyer" th:field="*{buyer}">
+						<select id="buyer" name="buyer" th:field="*{buyer}">
 							<option th:each="buyer: ${listAllBuyers}" th:value="${buyer.name}" th:text="${buyer.name}"></option>
 						</select>
 					</div>
