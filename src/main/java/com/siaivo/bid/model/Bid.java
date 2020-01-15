@@ -86,20 +86,20 @@ public class Bid {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
-    private PurchaseData purchaseData;
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "id", nullable = false)
+//    private PurchaseData purchaseData;
 
     public Bid() {
     }
 
-    public PurchaseData getPurchaseData() {
-        return purchaseData;
-    }
-
-    public void setPurchaseData(PurchaseData purchaseData) {
-        this.purchaseData = purchaseData;
-    }
+//    public PurchaseData getPurchaseData() {
+//        return purchaseData;
+//    }
+//
+//    public void setPurchaseData(PurchaseData purchaseData) {
+//        this.purchaseData = purchaseData;
+//    }
 
     public String getStatus() {
         return status;

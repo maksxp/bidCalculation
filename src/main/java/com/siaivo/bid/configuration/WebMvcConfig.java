@@ -7,15 +7,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
 //@EnableWebMvc - don't use it. with it css and js etc don't load
-
 @PropertySource("classpath:application.properties")
 public class WebMvcConfig implements WebMvcConfigurer {
 
@@ -30,8 +27,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.addResourceLocations("/resources/");
 	}
     @Bean
-	public TemplateResolver templateResolver (){
-	ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+	public SpringResourceTemplateResolver templateResolver (){
+	SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
 	templateResolver.setPrefix("WEB-INF/templates/");
 	templateResolver.setSuffix(".html");
 	templateResolver.setTemplateMode("HTML5");
@@ -42,6 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public SpringTemplateEngine templateEngine (){
 	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 	templateEngine.setTemplateResolver(templateResolver());
+	templateEngine.setEnableSpringELCompiler(true);
 	return templateEngine;
 }
    @Bean
